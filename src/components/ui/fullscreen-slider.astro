@@ -8,7 +8,7 @@ type Props = {
   images: SanityImageAssetDocument[];
 };
 
-const imgs = Astro.props.images.map((i) => urlFor(i).width(720).url());
+const imgs = Astro.props.images.map((i) => urlFor(i).width(2048).url());
 ---
 
 <div
