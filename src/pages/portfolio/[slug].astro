@@ -31,7 +31,9 @@ const project = (
   await sanityClient.fetch(`*[_type == "project" && slug.current == "${slug}"]`)
 )[0];
 
-const heroUrl = urlFor(project.main_image_desktop).width(2048).url();
+const heroUrl = project.main_image_desktop
+  ? urlFor(project.main_image_desktop).width(2048).url()
+  : undefined;
 ---
 
 <Layout>
