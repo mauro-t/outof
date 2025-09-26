@@ -1,0 +1,24 @@
+---
+import Layout from "../components/layout/layout.astro";
+import AboutClaim from "../components/ui/about-claim.astro";
+import AboutOutOf from "../components/ui/about-out-of.astro";
+import BuzzPhrase from "../components/ui/buzz-phrase.astro";
+import PurposeMissionVision from "../components/ui/purpose-mission-vision.astro";
+---
+
+<Layout>
+  <div class="p-3 md:p-5">
+    <BuzzPhrase animateByLine />
+  </div>
+  <AboutClaim />
+  <PurposeMissionVision />
+  <div class="relative h-screen w-full">
+    <img
+      src="/mock-images/wwf2.jpg"
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover md:object-[50%_80%]"
+      loading="lazy"
+    />
+  </div>
+  <AboutOutOf />
+</Layout>

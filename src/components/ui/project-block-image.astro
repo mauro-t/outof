@@ -1,0 +1,7 @@
+---
+import { urlFor } from "../../lib/sanity";
+
+const src = urlFor(Astro.props.image).width(720).url();
+---
+
+<img src={src} alt="" loading="lazy" />

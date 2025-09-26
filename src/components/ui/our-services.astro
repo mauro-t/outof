@@ -1,0 +1,91 @@
+---
+import type { HTMLTag } from "astro/types";
+
+type Props = {
+  isHomepage?: boolean;
+};
+
+const { isHomepage } = Astro.props;
+const TitleTag = isHomepage ? "h2" : "h1";
+---
+
+<div
+  id="our-services"
+  class="flex h-hero w-full flex-col items-center justify-center bg-black p-6 text-white md:aspect-9/4 md:h-auto dark:bg-accent dark:text-black"
+>
+  <div class="overflow-hidden">
+    <TitleTag
+      data-title
+      style="transform: translateY(100%);"
+      class="text-center font-serif text-title-2xl">I nostri servizi</TitleTag
+    >
+  </div>
+  <p
+    style="opacity: 0;"
+    class="mt-6 max-w-174 text-center text-body-md md:mt-12"
+  >
+    Strategia, creatività e produzione si uniscono per accompagnare progetti che
+    vogliono lasciare un segno, non solo un'impressione.
+  </p>
+  {
+    isHomepage && (
+      <div data-more style="opacity: 0;" class="mt-8">
+        <a
+          href="/services"
+          class="group relative inline-flex items-center gap-1.5"
+        >
+          scopri di più{" "}
+          <div class="overflow-hidden">
+            <span class="inline-block -translate-x-full transition-transform duration-500 group-hover:translate-x-0">
+              +
+            </span>
+          </div>
+          <span class="absolute -bottom-1 left-0 h-0.5 w-full origin-left scale-x-0 bg-current transition-transform duration-500 group-hover:scale-x-100" />
+        </a>
+      </div>
+    )
+  }
+</div>
+
+<script>
+  import { animate, inView, stagger, type AnimationSequence } from "motion";
+  import { createLineElements, splitText } from "../../animations/by-line";
+
+  function init() {
+    inView(
+      "#our-services",
+      () => {
+        (async () => {
+          const p =
+            document.querySelector<HTMLParagraphElement>("#our-services p")!;
+          p.style.opacity = "1";
+          const lines = createLineElements(p, splitText(p));
+          const more = document.querySelector<HTMLElement>("[data-more]");
+          const seq: AnimationSequence = [
+            ["#our-services [data-title]", { y: 0 }, { duration: 0.35 }],
+            [
+              lines,
+              {
+                y: 0,
+              },
+              {
+                duration: 0.35,
+                delay: stagger(0.2),
+              },
+            ],
+          ];
+
+          await animate(seq);
+          if (more) {
+            animate(more, { opacity: 1 });
+          }
+        })();
+      },
+      {
+        margin: "0px 0px -200px 0px",
+      }
+    );
+  }
+
+  init();
+</script>

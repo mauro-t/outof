@@ -1,0 +1,44 @@
+---
+import "swiper/css";
+import "swiper/css/pagination";
+import type { SanityImageAssetDocument } from "@sanity/client";
+import { urlFor } from "../../lib/sanity";
+
+type Props = {
+  images: SanityImageAssetDocument[];
+};
+
+const imgs = Astro.props.images.map((i) => urlFor(i).width(720).url());
+---
+
+<div
+  class="swiper-fullscreen relative my-3 h-[60svh] overflow-hidden md:h-[calc(100svh-var(--header-height)-24px)]"
+>
+  <div class="swiper-wrapper">
+    {
+      imgs.map((img) => (
+        <div class="swiper-slide relative">
+          <img src={img} class="absolute inset-0 h-full w-full object-cover" />
+        </div>
+      ))
+    }
+  </div>
+  <div
+    class="swiper-pagination flex items-center gap-3 !px-5 !text-left not-md:!bottom-7"
+  >
+  </div>
+</div>
+<script>
+  import Swiper from "swiper";
+  import { Pagination } from "swiper/modules";
+
+  new Swiper(".swiper-fullscreen", {
+    modules: [Pagination],
+    pagination: {
+      el: ".swiper-pagination",
+      bulletClass: "size-2 bg-white rounded-full inline-block",
+      bulletActiveClass: "size-4 !bg-accent",
+      clickable: true,
+    },
+  });
+</script>

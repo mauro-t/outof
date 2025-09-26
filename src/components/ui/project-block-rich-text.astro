@@ -1,0 +1,9 @@
+---
+import { toHTML } from "@portabletext/to-html";
+
+const { blocks } = Astro.props;
+
+const content = toHTML(blocks);
+---
+
+<div class="max-w-115 text-body-rem *:not-first:mt-5" set:html={content} />

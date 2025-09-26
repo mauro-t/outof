@@ -1,0 +1,22 @@
+---
+type Props = {
+  title: string;
+  talents: string[];
+};
+const { title, talents } = Astro.props;
+let talent = "";
+
+if (talents.length >= 2) {
+  talent = talents.slice(0, -1).join(", ") + " & " + talents.at(-1);
+} else {
+  talent = talents.length ? talents.join("") : "";
+}
+---
+
+<div class="px-3 pt-10 md:px-5 md:pt-17">
+  <h1 class="font-serif text-title-md">
+    {title}
+    <br />
+    <span class="italic">{talent}</span>
+  </h1>
+</div>

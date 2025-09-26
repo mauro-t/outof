@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "projectName": "Asics Running Talks",
+    "author": "Johanna Maggy",
+    "image": { "src": "/mock-images/wwf.jpg", "aspectRatio": "3/4" }
+  },
+  {
+    "id": 2,
+    "projectName": "WWF Giornate delle Oasi",
+    "author": "Multitalent",
+    "image": { "src": "/mock-images/wwf2.jpg", "aspectRatio": "4/3" }
+  },
+  {
+    "id": 3,
+    "projectName": "Progetto Tevere",
+    "author": "Marco Spinelli & Roby D’Amico",
+    "image": { "src": "/mock-images/coste_nascoste.jpg", "aspectRatio": "3/4" }
+  },
+  {
+    "id": 4,
+    "projectName": "Coste Nascoste 1 + 2",
+    "author": "Marco Spinelli",
+    "image": { "src": "/mock-images/placeholder2.jpg", "aspectRatio": "16/9" }
+  },
+  {
+    "id": 5,
+    "projectName": "Fast Fashion",
+    "author": "Progetto Happiness",
+    "image": { "src": "/mock-images/placeholder.jpg", "aspectRatio": "3/4" }
+  },
+  {
+    "id": 6,
+    "projectName": "Paul&Shark Saving Posidonia",
+    "author": "Multitalent",
+    "image": { "src": "/mock-images/placeholder2.jpg", "aspectRatio": "16/9" }
+  },
+  {
+    "id": 7,
+    "projectName": "VOX Fermiamoli Col Voto",
+    "author": "Multitalent",
+    "image": { "src": "/mock-images/placeholder.jpg", "aspectRatio": "4/3" }
+  },
+  {
+    "id": 8,
+    "projectName": "Scarty Party",
+    "author": "Alessio Cicchini",
+    "image": { "src": "/mock-images/placeholder2.jpg", "aspectRatio": "16/9" }
+  }
+]

@@ -1,0 +1,49 @@
+---
+
+---
+
+<label
+  for="theme-switcher"
+  class="inline-flex cursor-pointer flex-col items-center justify-center gap-0.5 md:flex-row md:gap-2.5"
+>
+  <strong class="text-[0.625rem] font-semibold md:text-base">Eco view:</strong>
+  <input
+    type="checkbox"
+    name="theme-switcher"
+    id="theme-switcher"
+    class="peer sr-only"
+  />
+  <span
+    class="group relative h-6.5 w-16.5 rounded-full border md:h-9.5 md:w-20"
+  >
+    <span
+      class="absolute top-1/2 left-2 -translate-y-1/2 font-semibold uppercase opacity-0 transition-opacity group-peer-checked:opacity-100"
+      >on</span
+    >
+    <span
+      class="absolute top-1/2 right-2 -translate-y-1/2 font-semibold uppercase transition-opacity group-peer-checked:opacity-0"
+      >off</span
+    >
+    <span
+      class="absolute top-0.5 left-0.5 aspect-square h-[calc(100%-0.25rem)] rounded-full bg-current transition-[translate,left] group-peer-checked:left-[calc(100%-0.25rem)] group-peer-checked:-translate-x-full md:top-1 md:left-1 md:h-[calc(100%-0.5rem)] md:group-peer-checked:left-[calc(100%-0.5rem)]"
+    ></span>
+  </span>
+</label>
+
+<script>
+  const themeSwitcher = document.getElementById(
+    "theme-switcher"
+  ) as HTMLInputElement;
+
+  themeSwitcher.addEventListener("change", () => {
+    const isDark = themeSwitcher.checked;
+    document.documentElement.classList.toggle("dark", isDark);
+    if (isDark) localStorage.theme = "dark";
+    else localStorage.theme = "light";
+  });
+
+  themeSwitcher.checked =
+    localStorage.theme === "dark" ||
+    (!("theme" in localStorage) &&
+      matchMedia("(prefers-color-scheme: dark)").matches);
+</script>

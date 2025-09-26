@@ -1,0 +1,64 @@
+---
+type Props = {
+  invert?: boolean;
+};
+
+const { invert } = Astro.props;
+---
+
+<div
+  data-mask
+  data-invert={invert}
+  class="group absolute inset-0 flex items-center justify-center overflow-hidden bg-white mix-blend-lighten data-[invert]:bg-black data-[invert]:mix-blend-darken dark:bg-black dark:mix-blend-darken data-[invert]:dark:bg-accent data-[invert]:dark:mix-blend-lighten"
+>
+  <svg
+    style="width: 0vmax;"
+    class="flex-none"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 352 301"
+    fill="none"
+    preserveAspectRatio="xMidYMid slice"
+  >
+    <path
+      class="fill-[#000] group-data-[invert]:fill-[#fff] dark:fill-[#fff] group-data-[invert]:dark:fill-[#000]"
+      d="M332.842 25.865C320.637 8.62327 304.083 0 283.167 0C270.297 0 257.758 3.60291 245.559 10.7941C233.355 17.9918 221.96 28.0407 211.371 40.9342C204.322 49.5156 197.854 58.9555 191.936 69.2177C189.123 51.3582 183.827 36.8961 176.025 25.865C163.82 8.62327 147.266 0 126.35 0C113.48 0 100.941 3.60291 88.7423 10.7941C76.538 17.9918 65.1435 28.0407 54.5538 40.9342C43.9577 53.8343 34.6436 68.6307 26.5993 85.3318C18.555 102.031 12.2513 120.021 7.69522 139.299C3.13191 158.582 0.856689 178.267 0.856689 198.358C0.856689 232.032 6.95362 257.557 19.1579 274.932C31.3566 292.312 47.9173 301 68.8328 301C81.7034 301 94.2355 297.397 106.441 290.206C118.639 283.015 130.033 272.966 140.629 260.066C147.684 251.477 154.162 242.02 160.087 231.739C162.906 249.445 168.193 263.853 175.975 274.932C188.174 292.312 204.734 301 225.65 301C238.52 301 251.053 297.397 263.258 290.206C275.456 283.015 286.85 272.966 297.446 260.066C308.036 247.172 317.356 232.368 325.401 215.668C333.445 198.969 339.742 180.983 344.306 161.701C348.862 142.423 351.143 122.739 351.143 102.642C351.143 68.7021 345.041 43.1116 332.842 25.865Z"
+    ></path>
+  </svg>
+</div>
+
+<script>
+  import { toRect, type Interpolator } from "flubber";
+  import { animate, inView } from "motion";
+
+  const masks = document.querySelectorAll<HTMLDivElement>("[data-mask]");
+
+  function inViewCallback(path: SVGPathElement, interpolator: Interpolator) {
+    return (element: Element) => {
+      const svg = element.querySelector<SVGElement>(":scope svg")!;
+      animate(
+        svg,
+        { width: "100vmax" },
+        { ease: [0.6, 0, 0.4, 1], duration: 0.7 }
+      );
+      animate(0, 1, {
+        duration: 0.7,
+        delay: 0.2,
+        ease: "easeInOut",
+        onUpdate: (latest) => {
+          const newD = interpolator(latest);
+          path.setAttribute("d", newD);
+        },
+      });
+    };
+  }
+
+  masks.forEach((mask) => {
+    const path = mask.querySelector<SVGPathElement>(":scope path");
+    if (!path) throw new Error("No SVG mask path found");
+    const d = path.getAttribute("d")!;
+    const interpolator = toRect(d, 0, 0, 350, 300);
+    inView(mask, inViewCallback(path, interpolator), {
+      margin: "0px 0px -50% 0px",
+    });
+  });
+</script>

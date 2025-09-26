@@ -1,0 +1,21 @@
+---
+import Layout from "../components/layout/layout.astro";
+import ContactUs from "../components/ui/contact-us.astro";
+import OurServices from "../components/ui/our-services.astro";
+import ProjectsSlider from "../components/ui/projects-slider.astro";
+import ServicesList from "../components/ui/services-list.astro";
+---
+
+<Layout>
+  <OurServices />
+  <ServicesList />
+  <div class="py-10 md:py-17">
+    <h4 class="mb-5 px-3 font-serif text-title-sm md:mb-10 md:px-5">
+      Alcuni dei nostri progetti
+    </h4>
+    <ProjectsSlider />
+  </div>
+  <div class="md:py-28">
+    <ContactUs />
+  </div>
+</Layout>

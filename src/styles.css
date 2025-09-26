@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Instrument Sans Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400 700;
+  src: url(@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2) format('woff2'), url(@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root {
+  --header-height: 48px;
+}
+
+@theme {
+  --color-*: initial;
+  --default-font-family: "Instrument Sans Variable", sans-serif;
+  --font-serif: "Instrument Serif", serif;
+
+  --text-title-2xl: clamp(6.25rem, 4.0493rem + 9.3897vw, 12.5rem);
+  --text-title-2xl--line-height: 0.8;
+  --text-title-xl: clamp(4.25rem, 1.7852rem + 10.5164vw, 11.25rem);
+  --text-title-xl--line-height: 0.8;
+  --text-title-lg: clamp(3.75rem, 2.6056rem + 4.8826vw, 7rem);
+  --text-title-lg--line-height: 1;
+  --text-title-md: clamp(2.75rem, 1.9577rem + 3.3803vw, 5rem);
+  --text-title-md--line-height: 1;
+  --text-title-sm: clamp(2.375rem, 1.8028rem + 2.4413vw, 4rem);
+  --text-title-sm--line-height: 1;
+  
+  --text-body-lg: clamp(1.875rem, 1.4789rem + 1.6901vw, 3rem);
+  --text-body-lg--line-height: normal;
+  --text-body-md: clamp(1.5rem, 1.3239rem + 0.7512vw, 2rem);
+  --text-body-md--line-height: normal;
+  --text-body-sm: clamp(1.25rem, 1.162rem + 0.3756vw, 1.5rem);
+  --text-body-sm--line-height: normal;
+  --text-body-rem: 1rem;
+  --text-body-rem--line-height: normal;
+
+  --color-white: hsla(27, 24%, 93%, 1);
+  --color-black: hsla(30, 57%, 8%, 1);
+  --color-accent: hsla(69, 99%, 66%, 1);
+
+}
+
+@theme inline {
+  --spacing-header: var(--header-height);
+  --spacing-hero: calc(100svh - var(--header-height));
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@media (width >= 48rem) {
+  :root {
+    --header-height: 72px;
+  }
+}

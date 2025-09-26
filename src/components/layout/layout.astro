@@ -1,0 +1,37 @@
+---
+import "../../styles.css";
+import Header from "./header.astro";
+import Footer from "./footer.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Out of</title>
+    <script is:inline>
+      document.documentElement.classList.toggle(
+        "dark",
+        localStorage.theme === "dark" ||
+          (!("theme" in localStorage) &&
+            matchMedia("(prefers-color-scheme: dark)").matches)
+      );
+    </script>
+  </head>
+  <body
+    class="bg-white text-body-sm text-black antialiased dark:bg-black dark:text-accent"
+  >
+    <Header />
+    <div id="swup">
+      <slot />
+      <Footer />
+    </div>
+  </body>
+  <script>
+    import Lenis from "lenis";
+
+    const l = new Lenis({
+      autoRaf: true,
+    });
+  </script>
+</html>

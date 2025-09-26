@@ -1,0 +1,132 @@
+---
+import projects from "../../assets/mock-data/projects.json";
+import ProjectCard from "./project-card.astro";
+import clsx from "clsx";
+
+const rows = [
+  [
+    {
+      start: 1,
+      end: 4,
+      value: projects[0],
+    },
+    { start: 4, end: 8, value: projects[1] },
+  ],
+  [
+    {
+      start: 6,
+      end: 9,
+      value: projects[2],
+    },
+    {
+      start: 9,
+      end: 12,
+      value: projects[3],
+    },
+  ],
+  [
+    {
+      start: 4,
+      end: 9,
+      value: projects[4],
+    },
+  ],
+  [
+    {
+      start: 1,
+      end: 6,
+      value: projects[5],
+    },
+    {
+      start: 6,
+      end: 8,
+      value: projects[6],
+    },
+  ],
+  [
+    {
+      start: 8,
+      end: 12,
+      value: projects[7],
+    },
+  ],
+];
+const colStarts = [
+  "",
+  "md:col-start-1",
+  "md:col-start-2",
+  "md:col-start-3",
+  "md:col-start-4",
+  "md:col-start-5",
+  "md:col-start-6",
+  "md:col-start-7",
+  "md:col-start-9",
+  "md:col-start-10",
+  "md:col-start-11",
+  "md:col-start-12",
+  "md:col-start-13",
+];
+const colEnds = [
+  "",
+  "md:col-end-1",
+  "md:col-end-2",
+  "md:col-end-3",
+  "md:col-end-4",
+  "md:col-end-5",
+  "md:col-end-6",
+  "md:col-end-7",
+  "md:col-end-9",
+  "md:col-end-10",
+  "md:col-end-11",
+  "md:col-end-12",
+  "md:col-end-13",
+];
+---
+
+<div data-projects-grid class="space-y-5 p-3 md:space-y-17 md:p-5">
+  {
+    rows.map((row) => (
+      <div
+        data-project-row
+        class="grid grid-cols-1 not-md:gap-5 md:grid-cols-12 md:grid-rows-[420px] md:gap-x-2"
+      >
+        {row.map((item) => (
+          <div class={clsx(colStarts[item.start], colEnds[item.end])}>
+            <ProjectCard {...item.value} />
+          </div>
+        ))}
+      </div>
+    ))
+  }
+</div>
+<script>
+  import { animate, inView, stagger } from "motion";
+
+  inView(
+    "[data-project-row]",
+    (entry) => {
+      animate([
+        [entry, { opacity: 1 }],
+        [entry.querySelectorAll("[data-project-card]"), { opacity: 1 }],
+        [
+          entry.querySelectorAll(":scope [data-project-card] > div"),
+          { clipPath: "inset(0 0 0 0)" },
+          { duration: 1.2, delay: stagger(0.2), ease: [0.6, 0, 0.2, 1] },
+        ],
+        [
+          entry.querySelectorAll(":scope [data-project-card] > p span"),
+          {
+            y: [10, 0],
+            opacity: [0, 1],
+          },
+          {
+            duration: 0.5,
+            at: "<",
+            delay: stagger(0.2, { startDelay: 0.8 }),
+          },
+        ],
+      ]);
+    },
+    { margin: "0px 0px -200px 0px" }
+  );
+</script>

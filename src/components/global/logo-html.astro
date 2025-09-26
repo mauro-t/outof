@@ -1,0 +1,13 @@
+---
+import clsx from "clsx";
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"div">;
+
+const { class: className, ...props } = Astro.props;
+---
+
+<div class={clsx("font-serif", className)} {...props}>
+  <span class="tracking-[0.08em] italic">O</span>ut
+  <span class="ml-[-0.2em] tracking-[0.08em] italic">O</span>f
+</div>

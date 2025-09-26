@@ -1,0 +1,45 @@
+---
+import outOf from "../../assets/mock-data/out-of.json";
+---
+
+<div
+  id="about-out-of"
+  class="grid grid-cols-1 gap-10 px-3 py-10 md:grid-cols-3 md:px-5 md:py-17"
+>
+  {
+    outOf
+      .map((oo) => ({ ...oo, title: oo.title.replace("OutOf ", "") }))
+      .map(({ title, body }) => (
+        <div style="opacity: 0;" class="not-md:text-center">
+          <h4 class="overflow-hidden font-serif text-title-sm">
+            <div>
+              <span class="italic">OutOf</span>&nbsp;&nbsp;{title}
+            </div>
+          </h4>
+          <p class="mt-2">{body}</p>
+        </div>
+      ))
+  }
+</div>
+
+<script>
+  import { animate, inView, stagger } from "motion";
+
+  function init() {
+    inView(
+      "#about-out-of",
+      () => {
+        animate(
+          "#about-out-of > div",
+          { y: [20, 0], opacity: 1 },
+          { duration: 0.35, delay: stagger(0.2) }
+        );
+      },
+      {
+        margin: "0px 0px -200px 0px",
+      }
+    );
+  }
+
+  init();
+</script>

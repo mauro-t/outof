@@ -1,0 +1,45 @@
+---
+import Layout from "../../components/layout/layout.astro";
+import ProjectsGrid from "../../components/ui/projects-grid.astro";
+import ProjectsList from "../../components/ui/projects-list.astro";
+---
+
+<Layout>
+  <div class="peer pt-10 text-center md:pt-17">
+    <div class="inline-flex items-center gap-5">
+      <label
+        for="projects-view-list"
+        class="cursor-pointer has-[:checked]:underline"
+      >
+        <input
+          type="radio"
+          name="projects-view"
+          id="projects-view-list"
+          checked
+          class="sr-only"
+        />
+        Index
+      </label>
+      <label
+        for="projects-view-grid"
+        class="cursor-pointer has-[:checked]:underline"
+      >
+        <input
+          type="radio"
+          name="projects-view"
+          id="projects-view-grid"
+          class="sr-only"
+        />
+        Grid
+      </label>
+    </div>
+  </div>
+  <div class="hidden peer-has-[#projects-view-list:checked]:block">
+    <ProjectsList />
+  </div>
+  <div
+    class="hidden pt-10 peer-has-[#projects-view-grid:checked]:block md:pt-17"
+  >
+    <ProjectsGrid />
+  </div>
+</Layout>

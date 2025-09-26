@@ -1,0 +1,51 @@
+---
+import LogoHtml from "../global/logo-html.astro";
+type Props = {
+  animateByLine?: boolean;
+};
+
+const { animateByLine } = Astro.props;
+---
+
+<div
+  style={{
+    clipPath: animateByLine ? "inset(0 100% 0 0)" : "none",
+  }}
+  data-animate-by-line={animateByLine}
+  class="relative font-serif text-title-xl leading-none"
+>
+  <div class="contents text-right md:block">
+    <LogoHtml class="inline-block" /> è un’agenzia
+  </div>
+  <div class="contents text-center md:block">creativa impegnata</div>
+  <div class="contents md:block">nella diffusione di</div>
+  <div class="contents text-right md:block">messaggi sociali,</div>
+  <div class="contents text-right md:block">ambientali e culturali</div>
+</div>
+
+<script>
+  import { animate, inView, stagger } from "motion";
+
+  function init() {
+    const abl = document.querySelector<HTMLElement>("[data-animate-by-line]");
+    if (abl) {
+      inView(
+        abl,
+        () => {
+          animate(
+            abl,
+            {
+              clipPath: "inset(0 0 0 0)",
+            },
+            {
+              duration: 0.75,
+            }
+          );
+        },
+        { margin: "0px 0px -200px 0px" }
+      );
+    }
+  }
+
+  init();
+</script>

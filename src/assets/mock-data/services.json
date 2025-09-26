@@ -1,0 +1,39 @@
+[
+  {
+    "title": "Influencer Marketing",
+    "sections": [
+      {
+        "subtitle": "Full-service campaign",
+        "listItems": [
+          "Target & Market Analysis",
+          "Strategy & Concept Development",
+          "Social Media Strategy & ADV Creativity",
+          "Influencer Scouting, Selection & Activation",
+          "Performance Monitoring & Reporting",
+          "Post-campaign Optimization & Follow-up"
+        ]
+      }
+    ]
+  },
+  {
+    "title": "Creative Production",
+    "sections": [
+      {
+        "subtitle": "Photo & Video Production",
+        "listItems": [
+          "Storytelling & Concept Development",
+          "Art Direction & Copywriting",
+          "Shooting Production & Video Editing"
+        ]
+      },
+      {
+        "subtitle": "Event & Experience Production",
+        "listItems": [
+          "Planning & Management",
+          "Creative Design & Branding",
+          "Digital PR & Influencer Engagement"
+        ]
+      }
+    ]
+  }
+]

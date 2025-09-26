@@ -1,0 +1,77 @@
+---
+import { toHTML } from "@portabletext/to-html";
+import type { PortableTextBlock } from "@portabletext/types";
+type Props = {
+  year: string;
+  talents: string[];
+  description: {
+    solution: PortableTextBlock;
+    challenge: PortableTextBlock;
+  };
+  brands: string[];
+  services: string[];
+};
+
+const props = Astro.props;
+
+const challengeHTML = toHTML(props.description.challenge);
+const solutionHTML = toHTML(props.description.solution);
+---
+
+<div
+  class="grid grid-cols-2 gap-2 px-3 py-10 text-body-rem md:px-5 lg:grid-cols-12 lg:py-17"
+>
+  <div
+    class="order-4 col-span-2 mt-6 lg:order-1 lg:col-start-1 lg:col-end-7 lg:mt-0"
+  >
+    <div>
+      <h4 class="font-semibold">Challenge</h4>
+      <div class="mt-5" set:html={challengeHTML} />
+    </div>
+    <div class="mt-5">
+      <h4 class="font-semibold">Solution</h4>
+      <div class="mt-5" set:html={solutionHTML} />
+    </div>
+  </div>
+  <div
+    class="order-1 col-start-1 col-end-2 lg:order-2 lg:col-start-9 lg:col-end-10"
+  >
+    <div>
+      <h4 class="font-semibold">Brand:</h4>
+      <ul>
+        {props.brands.map((brand) => <li>{brand}</li>)}
+      </ul>
+    </div>
+    <div class="mt-5">
+      <h4 class="font-semibold">Talent:</h4>
+      <ul>
+        {props.talents.map((talent) => <li>{talent}</li>)}
+      </ul>
+    </div>
+  </div>
+  <div
+    class="order-2 col-start-2 col-end-3 lg:order-3 lg:col-start-11 lg:col-end-13"
+  >
+    <div>
+      <h4 class="font-semibold">Year:</h4>
+      <p>{props.year}</p>
+    </div>
+    <div class="mt-5">
+      <h4 class="font-semibold">Servizi:</h4>
+      <ul>
+        {props.services.map((service) => <li>{service}</li>)}
+      </ul>
+    </div>
+  </div>
+  <!-- <div
+    class="relative order-3 col-span-2 mt-6 h-hero bg-black lg:order-4 lg:col-span-12 lg:mt-12"
+  >
+    <video
+      class="absolute inset-0 h-full w-full"
+      src="/mock-images/placeholder-video.mp4"
+      muted
+      plays-inline
+      autoplay
+      loop></video>
+  </div> -->
+</div>

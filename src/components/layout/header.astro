@@ -1,0 +1,179 @@
+---
+import Logo from "../../assets/logo.svg";
+import Glyph from "../../assets/glyph.svg";
+import Logotype from "../../assets/logotype.svg";
+import ThemeSwitcher from "../global/theme-switcher.astro";
+import clsx from "clsx";
+import NewsletterBox from "../ui/newsletter-box.astro";
+
+const { pathname } = Astro.url;
+---
+
+<header
+  style="transform: translateY(-100%);"
+  class="peer sticky top-0 z-30 flex items-center justify-between bg-white px-3 py-1 text-body-rem md:px-5 md:py-3.5 dark:bg-black"
+>
+  <a href="/" class="not-md:hidden">
+    <Logo class="w-33.25" />
+  </a>
+  <a href="/" class="md:hidden">
+    <Glyph class="w-8 md:hidden" />
+  </a>
+  <ThemeSwitcher />
+  <div class="hidden items-center gap-10 uppercase lg:flex">
+    <nav class="contents">
+      <ul class="flex items-center gap-10 font-semibold">
+        <li
+          data-nav-item
+          data-current={pathname.includes("about")}
+          class={clsx(
+            "group relative",
+            pathname.includes("about") && "font-bold"
+          )}
+        >
+          <a href="/about">about</a>
+          <span
+            class="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100 group-data-[current='true']:scale-x-100"
+          ></span>
+        </li>
+        <li
+          data-nav-item
+          data-current={pathname.includes("services")}
+          class={clsx(
+            "group relative",
+            pathname.includes("services") && "font-bold"
+          )}
+        >
+          <a href="/services">servizi</a>
+          <span
+            class="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100 group-data-[current='true']:scale-x-100"
+          ></span>
+        </li>
+        <li
+          data-nav-item
+          data-current={pathname.includes("portfolio")}
+          class={clsx(
+            "group relative",
+            pathname.includes("portfolio") && "font-bold"
+          )}
+        >
+          <a href="/portfolio">portfolio</a>
+          <span
+            class="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100 group-data-[current='true']:scale-x-100"
+          ></span>
+        </li>
+      </ul>
+    </nav>
+    <button
+      id="newsletter-popup-toggle"
+      class="cursor-pointer rounded-full border px-3.5 py-2 font-semibold uppercase"
+      >newsletter</button
+    >
+  </div>
+  <div class="lg:hidden">
+    <label for="mobile-menu-open" class="font-semibold uppercase">
+      <input
+        type="radio"
+        name="mobile-menu-toggle"
+        id="mobile-menu-open"
+        class="sr-only"
+      />
+      Menu
+    </label>
+  </div>
+</header>
+
+<aside
+  class="fixed top-0 -left-full z-40 flex h-dvh w-full flex-col bg-black px-3 py-1 text-white peer-has-[#mobile-menu-open:checked]:translate-x-full lg:hidden dark:bg-accent dark:text-black"
+>
+  <div class="flex items-center justify-between">
+    <Logotype class="w-18" />
+    <label for="mobile-menu-close" class="font-semibold uppercase">
+      <input
+        type="radio"
+        name="mobile-menu-toggle"
+        id="mobile-menu-close"
+        class="sr-only"
+      />
+      ✕
+    </label>
+  </div>
+  <div class="mt-12 flex min-h-0 grow justify-center overflow-auto">
+    <div class="space-y-12 font-serif text-[4.7rem] leading-[0.8] capitalize">
+      <nav>
+        <ul class="space-y-12 text-center">
+          <li>
+            <a href="/about">home</a>
+          </li>
+          <li>
+            <a href="/about">about</a>
+          </li>
+          <li>
+            <a href="/services">servizi</a>
+          </li>
+          <li>
+            <a href="/portfolio">portfolio</a>
+          </li>
+        </ul>
+      </nav>
+      <button id="newsletter-popup-open" class="capitalize italic"
+        >newsletter</button
+      >
+    </div>
+  </div>
+</aside>
+<div
+  id="newsletter-popup"
+  class="fixed inset-0 z-50 hidden bg-black/20 backdrop-blur-[6px] lg:inset-auto lg:top-header lg:right-5 lg:translate-y-3 lg:bg-transparent lg:backdrop-blur-none"
+>
+  <div class="flex h-full w-full items-center justify-center lg:contents">
+    <div class="relative w-fit">
+      <button
+        id="newsletter-popup-close"
+        class="absolute top-3 right-6 z-10 text-white dark:text-black">✕</button
+      >
+      <div class="relative overflow-hidden rounded-3xl">
+        <img
+          src="/mock-images/placeholder2.jpg"
+          alt=""
+          class="absolute inset-0 h-full w-full object-center"
+        />
+        <NewsletterBox />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { animate, stagger, type AnimationSequence } from "motion";
+
+  function init() {
+    const newsletterPopup = document.getElementById("newsletter-popup");
+    const toggle = document.getElementById("newsletter-popup-toggle");
+    const open = document.getElementById("newsletter-popup-open");
+    const close = document.getElementById("newsletter-popup-close");
+
+    toggle?.addEventListener("click", () => {
+      newsletterPopup?.classList.toggle("hidden");
+    });
+
+    open?.addEventListener("click", () => {
+      newsletterPopup?.classList.remove("hidden");
+    });
+
+    close?.addEventListener("click", () => {
+      newsletterPopup?.classList.add("hidden");
+    });
+    const sequence: AnimationSequence = [
+      ["header", { y: 0 }, { duration: 0.7 }],
+      // [
+      //   "[data-nav-item]",
+      //   { opacity: 1 },
+      //   { duration: 0.45, delay: stagger(0.3) },
+      // ],
+    ];
+
+    animate(sequence);
+  }
+  init();
+</script>

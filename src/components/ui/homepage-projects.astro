@@ -1,0 +1,63 @@
+---
+import data from "../../assets/mock-data/projects.json";
+import ProjectPreview from "./project-preview.astro";
+
+const projects = data.slice(0, 4);
+---
+
+<div
+  style="opacity: 0;"
+  id="homepage-projects"
+  class="p-3 py-17 md:p-5 md:py-22"
+>
+  <h4 class="text-center">selected work</h4>
+  <div class="mt-6 space-y-5 md:mt-12 md:space-y-7.5">
+    {projects.map((project) => <ProjectPreview {...project} />)}
+  </div>
+  <div class="mt-8 text-center">
+    <a
+      href="/portfolio"
+      class="group relative inline-flex items-center gap-1.5"
+    >
+      scopri di più <div class="overflow-hidden">
+        <span
+          class="inline-block -translate-x-full transition-transform duration-500 group-hover:translate-x-0"
+          >+</span
+        >
+      </div>
+      <span
+        class="absolute -bottom-1 left-0 h-0.5 w-full origin-left scale-x-0 bg-current transition-transform duration-500 group-hover:scale-x-100"
+      >
+      </span>
+    </a>
+  </div>
+</div>
+
+<script>
+  import { animate, inView, stagger } from "motion";
+
+  function init() {
+    inView(
+      "#homepage-projects",
+      () => {
+        animate("#homepage-projects", { opacity: 1 });
+        animate(
+          "#homepage-projects [data-project-preview]",
+          {
+            y: [20, 0],
+            opacity: [0, 1],
+          },
+          {
+            duration: 0.35,
+            delay: stagger(0.2),
+          }
+        );
+      },
+      {
+        margin: "0px 0px -200px 0px",
+      }
+    );
+  }
+
+  init();
+</script>

@@ -1,0 +1,51 @@
+---
+import purposeMissionVision from "../../assets/mock-data/purpose-mission-vision.json";
+---
+
+<div
+  id="purpose-mission-vision"
+  class="grid grid-cols-1 gap-10 px-3 py-10 md:grid-cols-3 md:px-5 md:py-17"
+>
+  {
+    purposeMissionVision.map(({ title, body }) => (
+      <div class="not-md:text-center">
+        <h4 class="overflow-hidden font-serif text-title-sm">
+          <div style="transform: translateY(100%);">{title}</div>
+        </h4>
+        <p class="mt-2">{body}</p>
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  import { animate, inView, stagger } from "motion";
+  import { splitText, createLineElements } from "../../animations/by-line";
+
+  function init() {
+    const paragraphs = document.querySelectorAll<HTMLElement>(
+      "#purpose-mission-vision p"
+    );
+    paragraphs.forEach((p) => {
+      p.style.opacity = "0";
+    });
+    inView(
+      "#purpose-mission-vision",
+      () => {
+        paragraphs.forEach(async (p) => {
+          p.style.opacity = "1";
+          const lines = createLineElements(p, splitText(p));
+          const titleLine =
+            p.previousElementSibling?.querySelector(":scope div");
+          await animate(titleLine!, { y: 0 }, { duration: 0.35 });
+          animate(lines, { y: 0 }, { duration: 0.35, delay: stagger(0.2) });
+        });
+      },
+      {
+        margin: "0px 0px -200px 0px",
+      }
+    );
+  }
+
+  init();
+</script>

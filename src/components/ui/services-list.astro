@@ -1,0 +1,38 @@
+---
+import services from "../../assets/mock-data/services.json";
+---
+
+<div class="px-3 py-10 md:px-5 md:py-17">
+  {
+    services.map(({ title, sections }) => (
+      <div class="grid grid-cols-1 items-start not-md:mt-12 md:grid-cols-2 md:gap-[calc(1/12*100%)] md:first:pb-17">
+        <h3 class="font-serif text-title-md md:sticky md:top-header">
+          {title}
+        </h3>
+        <div class="space-y-12">
+          {sections.map((section) => (
+            <div style="opacity: 0;" data-service-section>
+              <h4 class="mt-6 text-body-lg">{section.subtitle}</h4>
+              <ul class="mt-6 list-['⬝'] space-y-2 pl-[0.75em]">
+                {section.listItems.map((item) => (
+                  <li class="pl-[0.25em] text-body-md leading-[1.6]">{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))
+  }
+</div>
+<script>
+  import { animate, inView } from "motion";
+
+  inView(
+    "[data-service-section]",
+    (entry) => {
+      animate(entry, { opacity: 1 }, { duration: 0.7 });
+    },
+    { margin: "0px 0px -200px 0px" }
+  );
+</script>

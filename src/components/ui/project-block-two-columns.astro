@@ -1,0 +1,36 @@
+---
+import clsx from "clsx";
+
+type Props = {
+  textCol?: 1 | 2;
+};
+
+const { textCol } = Astro.props;
+---
+
+<div
+  class={clsx(
+    "my-3 grid h-full grid-cols-1 gap-3 px-3 md:grid-cols-2 md:px-5",
+    textCol && "items-start"
+  )}
+>
+  <div
+    class={clsx(
+      "",
+      textCol == 1 &&
+        "order-2 md:sticky md:top-[calc(var(--header-height)+1rem)] md:order-1 md:pb-17"
+    )}
+  >
+    <slot name="col-1" />
+  </div>
+  <div
+    class={clsx(
+      "",
+      textCol == 1 && "order-1 md:order-2",
+      textCol == 2 &&
+        "md:sticky md:top-[calc(var(--header-height)+1rem)] md:pb-17"
+    )}
+  >
+    <slot name="col-2" />
+  </div>
+</div>

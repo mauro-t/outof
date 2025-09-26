@@ -1,0 +1,47 @@
+---
+import Layout from "../components/layout/layout.astro";
+import BuzzPhrase from "../components/ui/buzz-phrase.astro";
+import HomepageHero from "../components/ui/homepage-hero.astro";
+import HomepageProjects from "../components/ui/homepage-projects.astro";
+import OurServices from "../components/ui/our-services.astro";
+import NewsletterBox from "../components/ui/newsletter-box.astro";
+import AboutClaim from "../components/ui/about-claim.astro";
+import PurposeMissionVision from "../components/ui/purpose-mission-vision.astro";
+import AboutOutOf from "../components/ui/about-out-of.astro";
+import ServicesList from "../components/ui/services-list.astro";
+import ProjectsGrid from "../components/ui/projects-grid.astro";
+import ContactUs from "../components/ui/contact-us.astro";
+import ProjectsList from "../components/ui/projects-list.astro";
+import ProjectsSlider from "../components/ui/projects-slider.astro";
+import FullscreenSlider from "../components/ui/fullscreen-slider.astro";
+import Mask from "../components/global/mask.astro";
+import Morph from "../components/global/morph.astro";
+---
+
+<Layout>
+  <HomepageHero />
+  <div class="relative h-screen w-full overflow-hidden">
+    <img
+      src="/mock-images/wwf2.jpg"
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover md:object-[50%_80%]"
+      loading="lazy"
+    />
+  </div>
+  <div class="relative px-3 py-10 md:px-5 md:py-17">
+    <BuzzPhrase />
+    <Mask invert />
+  </div>
+  <OurServices isHomepage />
+  <HomepageProjects />
+  <div class="relative h-hero bg-black p-3 md:p-5">
+    <video
+      class="absolute inset-0 h-full w-full"
+      src="/mock-images/placeholder-video.mp4"
+      muted
+      plays-inline
+      autoplay
+      loop></video>
+    <NewsletterBox />
+  </div>
+</Layout>

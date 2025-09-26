@@ -1,0 +1,169 @@
+---
+import type { GetStaticPaths } from "astro";
+import { sanityClient } from "sanity:client";
+
+// import project from "../../assets/mock-data/project.json";
+import Layout from "../../components/layout/layout.astro";
+import ProjectBlockInfo from "../../components/ui/project-block-info.astro";
+import ProjectBlockTitle from "../../components/ui/project-block-title.astro";
+import ProjectBlockTwoColumns from "../../components/ui/project-block-two-columns.astro";
+import ProjectBlockSlider from "../../components/ui/project-block-slider.astro";
+import FullscreenSlider from "../../components/ui/fullscreen-slider.astro";
+import ProjectBlockRichText from "../../components/ui/project-block-rich-text.astro";
+import ProjectBlockImage from "../../components/ui/project-block-image.astro";
+import ProjectsSlider from "../../components/ui/projects-slider.astro";
+import { urlFor } from "../../lib/sanity";
+
+export const getStaticPaths = (async () => {
+  const slugs = await sanityClient.fetch(`*[_type == "project"]{
+  "slug": slug.current
+}`);
+  return slugs.map(({ slug }: { slug: string }) => ({
+    params: {
+      slug,
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { slug } = Astro.params as { slug: string };
+
+const project = (
+  await sanityClient.fetch(`*[_type == "project" && slug.current == "${slug}"]`)
+)[0];
+
+const heroUrl = urlFor(project.main_image_desktop).width(2048).url();
+---
+
+<Layout>
+  <div class="relative h-screen w-full">
+    <img
+      src={heroUrl}
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover"
+      loading="lazy"
+    />
+  </div>
+  <ProjectBlockTitle title={project.title} talents={project.talents} />
+  <ProjectBlockInfo {...project} />
+  {
+    project.content.map((p: any) => {
+      if (p._type == "full_width_section") {
+        const content = p.content[0];
+        if (content._type == "video_block")
+          return <div set:html={content.vimeoId} />;
+        if (content._type == "carousel_block") {
+          const layout = content.layout;
+          if (layout == "multi")
+            return <ProjectBlockSlider images={content.images} />;
+          else return <FullscreenSlider images={content.images} />;
+        }
+      }
+      if (p._type == "two_columns_section") {
+        const left = p.left[0];
+        const right = p.right[0];
+
+        let textCol = undefined;
+        if (left._type == "rich_text_block") textCol = 1 as const;
+        if (right._type == "rich_text_block") textCol = 2 as const;
+
+        return (
+          <ProjectBlockTwoColumns textCol={textCol}>
+            <div slot="col-1">
+              {(() => {
+                if (left._type == "rich_text_block") {
+                  return <ProjectBlockRichText blocks={left.content} />;
+                }
+                if (left._type == "image_block") {
+                  return <ProjectBlockImage image={left.image} />;
+                }
+              })()}
+            </div>
+            <div slot="col-2">
+              {(() => {
+                if (right._type == "rich_text_block") {
+                  return <ProjectBlockRichText blocks={right.content} />;
+                }
+                if (right._type == "image_block") {
+                  return <ProjectBlockImage image={right.image} />;
+                }
+              })()}
+            </div>
+          </ProjectBlockTwoColumns>
+        );
+      }
+    })
+  }
+  <!-- <ProjectBlockTwoColumns textCol={1}>
+    <div slot="col-1" class="text-body-rem">
+      <h4 class="font-semibold">Output</h4>
+      <div class="max-w-115">
+        <div data-animation="by-line" class="mt-5">
+          Un contenuto narrativo autentico:Il documentario racconta il viaggio
+          di due ragazzi lungo il Tevere, tra paesaggi dimenticati, voci locali
+          e memorie sommerse. Una narrazione poetica e diretta, che riattiva
+          l’immaginario legato al fiume.
+        </div>
+        <div data-animation="by-line" class="mt-5">
+          Un percorso educativo strutturato:Il progetto entra nelle scuole
+          superiori con proiezioni, workshop e incontri che coinvolgono studenti
+          e insegnanti in un dialogo attivo sui temi ambientali. Dopo un primo
+          tour nel 2022 (500 studenti), il secondo (aprile 2024) punta a
+          raggiungere oltre 1.500 giovani nel centro Italia.
+        </div>
+      </div>
+    </div>
+    <div slot="col-2">
+      <img src="/mock-images/project1.jpg" alt="" loading="lazy" />
+    </div>
+  </ProjectBlockTwoColumns>
+  <ProjectBlockTwoColumns textCol={2}>
+    <div slot="col-1">
+      <img src="/mock-images/project2.jpg" alt="" loading="lazy" />
+    </div>
+    <div slot="col-2" class="text-body-rem">
+      <div class="max-w-115">
+        <div data-animation="by-line">
+          Un sistema di engagement territoriale: <br />Il format è scalabile,
+          replicabile e aperto a tutte le scuole interessate. La partecipazione
+          avviene attraverso un sistema di adesione attiva e collaborativa.
+        </div>
+        <div data-animation="by-line" class="mt-5">
+          Un’operazione di brand activism: <br /> Il coinvolgimento di aziende sensibili
+          al tema della sostenibilità rafforza il progetto e ne garantisce la sostenibilità.
+          I brand partner sono parte della narrazione, non sponsor esterni: condividono
+          i valori, supportano l’esecuzione, amplificano il messaggio.
+        </div>
+      </div>
+    </div>
+  </ProjectBlockTwoColumns>
+  <ProjectBlockSlider />
+  <div class="py-3">
+    <FullscreenSlider />
+  </div>
+  <div class="h-hero">
+    <ProjectBlockTwoColumns>
+      <div slot="col-1" class="relative h-full w-full">
+        <img
+          src="/mock-images/project2.jpg"
+          alt=""
+          loading="lazy"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+      </div>
+      <div slot="col-2" class="relative h-full w-full">
+        <img
+          src="/mock-images/project3.jpg"
+          alt=""
+          loading="lazy"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+      </div>
+    </ProjectBlockTwoColumns>
+  </div>
+  <div class="py-10 md:py-17">
+    <h4 class="mb-5 px-3 font-serif text-title-sm md:mb-10 md:px-5">
+      Potrebbero interessarti anche
+    </h4>
+    <ProjectsSlider />
+  </div> -->
+</Layout>

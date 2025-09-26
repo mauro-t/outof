@@ -1,0 +1,40 @@
+---
+import { Image } from "astro:assets";
+
+type Props = {
+  id: number;
+  projectName: string;
+  author: string;
+  image?: { src: string; aspectRatio: string };
+};
+const { id, projectName, author, image } = Astro.props;
+
+const { src, aspectRatio } = image ?? {
+  aspectRatio: "16/9",
+  src: "https://picsum.photos/320/240",
+};
+---
+
+<a
+  data-project-card
+  style="opacity: 0;"
+  href={`/portfolio/${id}`}
+  class="group flex h-full flex-none flex-col"
+>
+  <div
+    style={{ aspectRatio, clipPath: "inset(100% 0 0 0)" }}
+    class="relative h-full min-h-0 overflow-hidden"
+  >
+    <img
+      src={src}
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover transition-[scale,filter] duration-500 group-hover:scale-110 group-hover:brightness-110 group-hover:saturate-110"
+    />
+  </div>
+  <p class="mt-3 text-body-rem font-semibold">
+    <span class="block">{projectName}</span>
+    <span class="block">{author}</span>
+  </p>
+</a>
+
+<script></script>
