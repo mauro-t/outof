@@ -7,6 +7,7 @@ const { invert } = Astro.props;
 ---
 
 <div
+  data-ts="mask"
   data-mask
   data-invert={invert}
   class="group absolute inset-0 flex items-center justify-center overflow-hidden bg-white mix-blend-lighten data-[invert]:bg-black data-[invert]:mix-blend-darken dark:bg-black dark:mix-blend-darken data-[invert]:dark:bg-accent data-[invert]:dark:mix-blend-lighten"
@@ -25,40 +26,3 @@ const { invert } = Astro.props;
     ></path>
   </svg>
 </div>
-
-<script>
-  import { toRect, type Interpolator } from "flubber";
-  import { animate, inView } from "motion";
-
-  const masks = document.querySelectorAll<HTMLDivElement>("[data-mask]");
-
-  function inViewCallback(path: SVGPathElement, interpolator: Interpolator) {
-    return (element: Element) => {
-      const svg = element.querySelector<SVGElement>(":scope svg")!;
-      animate(
-        svg,
-        { width: "100vmax" },
-        { ease: [0.6, 0, 0.4, 1], duration: 0.7 }
-      );
-      animate(0, 1, {
-        duration: 0.7,
-        delay: 0.2,
-        ease: "easeInOut",
-        onUpdate: (latest) => {
-          const newD = interpolator(latest);
-          path.setAttribute("d", newD);
-        },
-      });
-    };
-  }
-
-  masks.forEach((mask) => {
-    const path = mask.querySelector<SVGPathElement>(":scope path");
-    if (!path) throw new Error("No SVG mask path found");
-    const d = path.getAttribute("d")!;
-    const interpolator = toRect(d, 0, 0, 350, 300);
-    inView(mask, inViewCallback(path, interpolator), {
-      margin: "0px 0px -50% 0px",
-    });
-  });
-</script>

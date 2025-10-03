@@ -11,7 +11,7 @@ import services from "../../assets/mock-data/services.json";
         </h3>
         <div class="space-y-12">
           {sections.map((section) => (
-            <div style="opacity: 0;" data-service-section>
+            <div>
               <h4 class="mt-6 text-body-lg">{section.subtitle}</h4>
               <ul class="mt-6 list-['⬝'] space-y-2 pl-[0.75em]">
                 {section.listItems.map((item) => (
@@ -26,13 +26,13 @@ import services from "../../assets/mock-data/services.json";
   }
 </div>
 <script>
-  import { animate, inView } from "motion";
+  // import { animate, inView } from "motion";
 
-  inView(
-    "[data-service-section]",
-    (entry) => {
-      animate(entry, { opacity: 1 }, { duration: 0.7 });
-    },
-    { margin: "0px 0px -200px 0px" }
-  );
+  // inView(
+  //   "[data-service-section]",
+  //   (entry) => {
+  //     animate(entry, { opacity: 1 }, { duration: 0.7 });
+  //   },
+  //   { margin: "0px 0px -200px 0px" }
+  // );
 </script>

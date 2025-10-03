@@ -1,6 +1,5 @@
 ---
 import { sanityClient } from "sanity:client";
-// import projects from "../../assets/mock-data/projects.json";
 import ProjectPreview from "./project-preview.astro";
 
 const projects = await sanityClient.fetch(`*[_type == "project"]{

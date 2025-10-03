@@ -5,12 +5,14 @@ type Props = {
 };
 
 const { animateByLine } = Astro.props;
+
+//  FIRST DIV STYLES
+// style={{
+//     clipPath: animateByLine ? "inset(0 100% 0 0)" : "none",
+//   }}
 ---
 
 <div
-  style={{
-    clipPath: animateByLine ? "inset(0 100% 0 0)" : "none",
-  }}
   data-animate-by-line={animateByLine}
   class="relative font-serif text-title-xl leading-none"
 >
@@ -24,28 +26,28 @@ const { animateByLine } = Astro.props;
 </div>
 
 <script>
-  import { animate, inView, stagger } from "motion";
+  // import { animate, inView, stagger } from "motion";
 
-  function init() {
-    const abl = document.querySelector<HTMLElement>("[data-animate-by-line]");
-    if (abl) {
-      inView(
-        abl,
-        () => {
-          animate(
-            abl,
-            {
-              clipPath: "inset(0 0 0 0)",
-            },
-            {
-              duration: 0.75,
-            }
-          );
-        },
-        { margin: "0px 0px -200px 0px" }
-      );
-    }
-  }
+  // function init() {
+  //   const abl = document.querySelector<HTMLElement>("[data-animate-by-line]");
+  //   if (abl) {
+  //     inView(
+  //       abl,
+  //       () => {
+  //         animate(
+  //           abl,
+  //           {
+  //             clipPath: "inset(0 0 0 0)",
+  //           },
+  //           {
+  //             duration: 0.75,
+  //           }
+  //         );
+  //       },
+  //       { margin: "0px 0px -200px 0px" }
+  //     );
+  //   }
+  // }
 
-  init();
+  // init();
 </script>

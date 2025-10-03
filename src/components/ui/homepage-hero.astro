@@ -4,7 +4,6 @@ import LogoHtml from "../global/logo-html.astro";
 
 <div
   id="hero-container"
-  style="opacity: 0;"
   class="flex h-hero flex-col items-center justify-center p-3 md:p-5"
 >
   <div
@@ -55,100 +54,100 @@ import LogoHtml from "../global/logo-html.astro";
 </div>
 
 <script>
-  import { animate, inView, stagger } from "motion";
-  import { splitText } from "../../animations/by-line";
+  // import { animate, inView, stagger } from "motion";
+  // import { splitText } from "../../animations/by-line";
 
-  async function init() {
-    let current = 0;
-    const paragraphs = document.querySelectorAll<HTMLParagraphElement>(
-      "#title-words-paragraphs p"
-    );
+  // async function init() {
+  //   let current = 0;
+  //   const paragraphs = document.querySelectorAll<HTMLParagraphElement>(
+  //     "#title-words-paragraphs p"
+  //   );
 
-    paragraphs.forEach((p) => {
-      p.style.opacity = "0";
-    });
+  //   paragraphs.forEach((p) => {
+  //     p.style.opacity = "0";
+  //   });
 
-    const performAnimation = async () => {
-      const p = current == 6 ? paragraphs[0] : paragraphs[current];
-      const prev = paragraphs[current - 1];
+  //   const performAnimation = async () => {
+  //     const p = current == 6 ? paragraphs[0] : paragraphs[current];
+  //     const prev = paragraphs[current - 1];
 
-      const lines = splitText(p);
-      p.style.opacity = "1";
+  //     const lines = splitText(p);
+  //     p.style.opacity = "1";
 
-      if (prev) {
-        const prevLines = prev.querySelectorAll("span span");
-        animate(prevLines, { opacity: 0, y: "-50%" }, { duration: 0.35 }).then(
-          () => {
-            prev.innerHTML = prev.innerText;
-            prev.style.opacity = "0";
-          }
-        );
-      }
+  //     if (prev) {
+  //       const prevLines = prev.querySelectorAll("span span");
+  //       animate(prevLines, { opacity: 0, y: "-50%" }, { duration: 0.35 }).then(
+  //         () => {
+  //           prev.innerHTML = prev.innerText;
+  //           prev.style.opacity = "0";
+  //         }
+  //       );
+  //     }
 
-      const lineElements = lines.map((line) => {
-        const div = document.createElement("span");
-        div.className = "block";
-        const animated = document.createElement("span");
-        animated.className = "block";
-        animated.style.opacity = "0";
-        animated.style.transform = "translateY(50%)";
-        animated.innerText = line;
-        div.append(animated);
-        p.append(div);
-        return animated;
-      });
+  //     const lineElements = lines.map((line) => {
+  //       const div = document.createElement("span");
+  //       div.className = "block";
+  //       const animated = document.createElement("span");
+  //       animated.className = "block";
+  //       animated.style.opacity = "0";
+  //       animated.style.transform = "translateY(50%)";
+  //       animated.innerText = line;
+  //       div.append(animated);
+  //       p.append(div);
+  //       return animated;
+  //     });
 
-      animate(
-        lineElements,
-        { y: 0, opacity: 1 },
-        { duration: 0.75, delay: stagger(0.1) }
-      );
+  //     animate(
+  //       lineElements,
+  //       { y: 0, opacity: 1 },
+  //       { duration: 0.75, delay: stagger(0.1) }
+  //     );
 
-      animate(
-        "#title-words",
-        {
-          y: `-${current * 100}%`,
-        },
-        { duration: 0.65, ease: [0.6, 0, 0.2, 1] }
-      ).then(() => {
-        if (current == 6) {
-          animate("#title-words", { y: 0 }, { duration: 0 });
-          current = 1;
-        } else {
-          current += 1;
-        }
-      });
-    };
+  //     animate(
+  //       "#title-words",
+  //       {
+  //         y: `-${current * 100}%`,
+  //       },
+  //       { duration: 0.65, ease: [0.6, 0, 0.2, 1] }
+  //     ).then(() => {
+  //       if (current == 6) {
+  //         animate("#title-words", { y: 0 }, { duration: 0 });
+  //         current = 1;
+  //       } else {
+  //         current += 1;
+  //       }
+  //     });
+  //   };
 
-    let prevTime: number | undefined = undefined;
+  //   let prevTime: number | undefined = undefined;
 
-    let frameId = -1;
+  //   let frameId = -1;
 
-    function raf(time: number) {
-      prevTime ??= time;
-      if (time - prevTime >= 3200) {
-        performAnimation();
-        prevTime = time;
-      }
-      frameId = requestAnimationFrame(raf);
-    }
+  //   function raf(time: number) {
+  //     prevTime ??= time;
+  //     if (time - prevTime >= 3200) {
+  //       performAnimation();
+  //       prevTime = time;
+  //     }
+  //     frameId = requestAnimationFrame(raf);
+  //   }
 
-    inView("#hero-container", () => {
-      (async () => {
-        await animate(
-          "#hero-container",
-          { opacity: 1 },
-          { duration: 0.55, delay: 0.2 }
-        ).finished;
-        performAnimation();
-        frameId = requestAnimationFrame(raf);
-      })();
+  //   inView("#hero-container", () => {
+  //     (async () => {
+  //       await animate(
+  //         "#hero-container",
+  //         { opacity: 1 },
+  //         { duration: 0.55, delay: 0.2 }
+  //       ).finished;
+  //       performAnimation();
+  //       frameId = requestAnimationFrame(raf);
+  //     })();
 
-      return () => {
-        cancelAnimationFrame(frameId);
-      };
-    });
-  }
+  //     return () => {
+  //       cancelAnimationFrame(frameId);
+  //     };
+  //   });
+  // }
 
-  init();
+  // init();
 </script>

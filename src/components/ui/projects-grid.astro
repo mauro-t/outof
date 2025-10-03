@@ -1,5 +1,22 @@
 ---
-import projects from "../../assets/mock-data/projects.json";
+import { sanityClient } from "sanity:client";
+
+const projects = await sanityClient.fetch(`*[_type == "project"]{
+  title,
+  talents,
+  "slug": slug.current,
+  listing_image{
+    asset->{
+      url,
+      metadata {
+        dimensions {
+          aspectRatio
+        },
+      },
+    }
+  }
+}[0..7]`);
+
 import ProjectCard from "./project-card.astro";
 import clsx from "clsx";
 

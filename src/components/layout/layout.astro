@@ -26,12 +26,43 @@ import Footer from "./footer.astro";
       <slot />
       <Footer />
     </div>
+    <div
+      id="page-transition-layer"
+      style="transform: translateY(100%);"
+      class="pointer-events-none fixed inset-0 z-50 flex items-center justify-center overflow-hidden"
+    >
+      <svg
+        style="height: 100vmax; transform: scaleX(0.01);"
+        class="flex-none"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 352 301"
+        fill="none"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        <path
+          d="M0 0 L352 0 L352 301 L0 301 Z"
+          class="fill-black dark:fill-accent"></path>
+      </svg>
+    </div>
   </body>
   <script>
     import Lenis from "lenis";
+    import Swup from "swup";
 
-    const l = new Lenis({
+    import { lazyLoad } from "../../lib/lazy-load";
+    import { animateLayerIn, animateLayerOut } from "../../animations/layout";
+
+    new Lenis({
       autoRaf: true,
     });
+
+    const swup = new Swup({ animationSelector: "" });
+
+    swup.hooks.on("page:view", () => lazyLoad());
+
+    swup.hooks.on("animation:out:await", animateLayerIn);
+    swup.hooks.on("animation:in:await", animateLayerOut);
+
+    lazyLoad();
   </script>
 </html>
