@@ -1,5 +1,5 @@
 import { fromRect } from "flubber";
-import { animate } from "motion";
+import { animate, scale } from "motion";
 
 const pageTransitionLayer = document.getElementById(
   "page-transition-layer",
@@ -16,13 +16,20 @@ const interpolator = fromRect(
 );
 
 export function animateLayerIn() {
+  const content = document.getElementById("content") as HTMLElement;
   return animate([
-    [pageTransitionLayer, { y: 0 }, { duration: 0.45, ease: "easeIn" }],
+    [content, { scale: 0.98, opacity: 0 }, { duration: 0.4 }],
+    [
+      pageTransitionLayer,
+      { y: 0 },
+      { at: "-0.2", duration: 0.45, ease: "easeIn" },
+    ],
     [svg, { scaleX: 1 }, { at: "-0.2", duration: 1, ease: "easeInOut" }],
   ]).finished;
 }
 
 export async function animateLayerOut() {
+  const content = document.getElementById("content") as HTMLElement;
   animate(0, 1, {
     duration: 0.4,
     ease: "easeOut",
@@ -31,11 +38,14 @@ export async function animateLayerOut() {
       path.setAttribute("d", d);
     },
   });
-  await animate(
-    svg,
-    { scale: 0 },
-    { duration: 0.75, ease: "circInOut", delay: 0.35 },
-  ).finished;
+  await animate([
+    [svg, { scale: 0 }, { duration: 0.75, ease: "circInOut", delay: 0.35 }],
+    [
+      content,
+      { scale: 1, opacity: 1 },
+      { duration: 0.5, delay: 0.75, at: "<" },
+    ],
+  ]).finished;
 
   animate(
     [

@@ -5,22 +5,12 @@ import HomepageHero from "../components/ui/homepage-hero.astro";
 import HomepageProjects from "../components/ui/homepage-projects.astro";
 import OurServices from "../components/ui/our-services.astro";
 import NewsletterBox from "../components/ui/newsletter-box.astro";
-import AboutClaim from "../components/ui/about-claim.astro";
-import PurposeMissionVision from "../components/ui/purpose-mission-vision.astro";
-import AboutOutOf from "../components/ui/about-out-of.astro";
-import ServicesList from "../components/ui/services-list.astro";
-import ProjectsGrid from "../components/ui/projects-grid.astro";
-import ContactUs from "../components/ui/contact-us.astro";
-import ProjectsList from "../components/ui/projects-list.astro";
-import ProjectsSlider from "../components/ui/projects-slider.astro";
-import FullscreenSlider from "../components/ui/fullscreen-slider.astro";
 import Mask from "../components/global/mask.astro";
-import Morph from "../components/global/morph.astro";
 ---
 
 <Layout>
   <HomepageHero />
-  <div data-ts="consolelog" class="relative h-screen w-full overflow-hidden">
+  <div data-section class="relative h-screen w-full overflow-hidden">
     <img
       src="/mock-images/wwf2.jpg"
       alt=""
@@ -28,13 +18,16 @@ import Morph from "../components/global/morph.astro";
       loading="lazy"
     />
   </div>
-  <div class="relative px-3 py-10 md:px-5 md:py-17">
+  <div
+    data-section
+    class="relative bg-white px-3 py-10 md:px-5 md:py-17 dark:bg-black"
+  >
     <BuzzPhrase />
     <Mask invert />
   </div>
   <OurServices isHomepage />
   <HomepageProjects />
-  <div class="relative h-hero bg-black p-3 md:p-5">
+  <div data-section="last" class="relative h-hero bg-black p-3 md:p-5">
     <video
       class="absolute inset-0 h-full w-full"
       src="/mock-images/placeholder-video.mp4"

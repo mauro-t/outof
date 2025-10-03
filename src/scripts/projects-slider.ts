@@ -1,4 +1,3 @@
-import Swiper from "swiper";
 import { animate, inView, stagger } from "motion";
 
 export default function ProjectsSlider() {
@@ -37,18 +36,4 @@ export default function ProjectsSlider() {
     },
     { margin: "0px 0px -150px 0px" },
   );
-
-  new Swiper(".swiper", {
-    spaceBetween: 12,
-    breakpoints: {
-      768: {
-        slidesPerView: "auto",
-        slidesOffsetBefore: 20,
-        slidesOffsetAfter: 20,
-      },
-    },
-    slidesPerView: 1.15,
-    slidesOffsetBefore: 12,
-    slidesOffsetAfter: 12,
-  });
 }

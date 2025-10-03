@@ -65,3 +65,7 @@
     --header-height: 72px;
   }
 }
+
+:where([data-section]) {
+  position: relative;
+}

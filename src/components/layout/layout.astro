@@ -22,8 +22,11 @@ import Footer from "./footer.astro";
     class="bg-white text-body-sm text-black antialiased dark:bg-black dark:text-accent"
   >
     <Header />
-    <div id="swup">
-      <slot />
+    <div id="content">
+      <main id="swup" class="relative z-10 bg-white dark:bg-black">
+        <slot />
+      </main>
+      <div id="footer-space" class="h-(--footer-height)"></div>
       <Footer />
     </div>
     <div
@@ -50,19 +53,39 @@ import Footer from "./footer.astro";
     import Swup from "swup";
 
     import { lazyLoad } from "../../lib/lazy-load";
+    import { initSwiper } from "../../lib/swiper";
     import { animateLayerIn, animateLayerOut } from "../../animations/layout";
+    import { animateSections } from "../../animations/animate-sections";
 
     new Lenis({
       autoRaf: true,
     });
 
     const swup = new Swup({ animationSelector: "" });
+    const footer = document.querySelector<HTMLElement>("footer")!;
+    const footerSpace = document.getElementById("footer-space");
 
-    swup.hooks.on("page:view", () => lazyLoad());
+    function setFooterSpace() {
+      footerSpace?.style.setProperty(
+        "--footer-height",
+        `${footer?.getBoundingClientRect().height}px`
+      );
+    }
+
+    new ResizeObserver(setFooterSpace).observe(footer);
+    setFooterSpace();
+
+    swup.hooks.on("page:view", () => {
+      animateSections();
+      lazyLoad();
+      initSwiper();
+    });
 
     swup.hooks.on("animation:out:await", animateLayerIn);
     swup.hooks.on("animation:in:await", animateLayerOut);
 
+    animateSections();
     lazyLoad();
+    initSwiper();
   </script>
 </html>
