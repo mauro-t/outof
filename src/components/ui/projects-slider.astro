@@ -1,13 +1,31 @@
 ---
 import "swiper/css";
-import projects from "../../assets/mock-data/projects.json";
+
+import { sanityClient } from "sanity:client";
+
 import ProjectCard from "./project-card.astro";
+
+const projects = await sanityClient.fetch(`*[_type == "project"]{
+  title,
+  talents,
+  "slug": slug.current,
+  listing_image{
+    asset->{
+      url,
+      metadata {
+        dimensions {
+          aspectRatio
+        },
+      },
+    }
+  }
+}[0..7]`);
 ---
 
 <div class="swiper h-120">
   <div class="swiper-wrapper">
     {
-      projects.map((project) => (
+      projects.map((project: any) => (
         <div class="swiper-slide md:!w-auto md:max-w-full">
           <ProjectCard {...project} />
         </div>
@@ -29,6 +47,15 @@ import ProjectCard from "./project-card.astro";
           "[data-project-card] > div",
           { clipPath: "inset(0 0 0 0)" },
           { duration: 1.2, delay: stagger(0.2), ease: [0.6, 0, 0.2, 1] },
+        ],
+        [
+          "[data-project-card] > div img",
+          { scale: [1.5, 1] },
+          {
+            duration: 1.4,
+            at: "<",
+            delay: stagger(0.2),
+          },
         ],
         [
           "[data-project-card] > p span",

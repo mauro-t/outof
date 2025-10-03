@@ -2,7 +2,6 @@
 import type { GetStaticPaths } from "astro";
 import { sanityClient } from "sanity:client";
 
-// import project from "../../assets/mock-data/project.json";
 import Layout from "../../components/layout/layout.astro";
 import ProjectBlockInfo from "../../components/ui/project-block-info.astro";
 import ProjectBlockTitle from "../../components/ui/project-block-title.astro";
@@ -10,8 +9,7 @@ import ProjectBlockTwoColumns from "../../components/ui/project-block-two-column
 import ProjectBlockSlider from "../../components/ui/project-block-slider.astro";
 import FullscreenSlider from "../../components/ui/fullscreen-slider.astro";
 import ProjectBlockRichText from "../../components/ui/project-block-rich-text.astro";
-import ProjectBlockImage from "../../components/ui/project-block-image.astro";
-import ProjectsSlider from "../../components/ui/projects-slider.astro";
+import ProjectBlockImage from "../../components/global/sanity-image.astro";
 import { urlFor } from "../../lib/sanity";
 
 export const getStaticPaths = (async () => {

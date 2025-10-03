@@ -1,0 +1,25 @@
+---
+type Props = {
+  image: any;
+  width?: number;
+  className?: string;
+  style?: Partial<CSSStyleDeclaration> | string;
+};
+
+import clsx from "clsx";
+import { urlFor } from "../../lib/sanity";
+
+const props = Astro.props;
+
+const src = urlFor(props.image)
+  .width(props.width ?? 1024)
+  .url();
+---
+
+<img
+  style={props.style}
+  src={src}
+  alt=""
+  loading="lazy"
+  class={clsx(props.className)}
+/>

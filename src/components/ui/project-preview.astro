@@ -1,12 +1,14 @@
 ---
+import SanityImage from "../global/sanity-image.astro";
+
 type Props = {
   slug: string;
   title: string;
   talents: string[];
-  image?: { src: string };
+  listing_image?: any;
 };
 
-const { slug, title, talents, image } = Astro.props;
+const { slug, title, talents, listing_image } = Astro.props;
 ---
 
 <div
@@ -14,15 +16,18 @@ const { slug, title, talents, image } = Astro.props;
   class="group relative overflow-x-clip text-center hover:z-10"
 >
   {
-    image && (
-      <img
-        src={image.src}
-        class="pointer-events-none absolute top-1/2 left-0 h-auto max-h-115 w-auto max-w-115 -translate-1/2 opacity-0"
+    listing_image && (
+      <SanityImage
+        image={listing_image}
+        width={420}
+        className="pointer-events-none absolute top-1/2 left-0 h-auto max-h-115 w-auto max-w-115 -translate-1/2 opacity-0"
       />
     )
   }
   <a href={`/portfolio/${slug}`} class="relative font-serif text-title-md"
-    >{title} &mdash; <span class="italic">{talents?.join(", ")}</span></a
+    >{title} &mdash; <span class="italic"
+      >{talents.length > 2 ? "Multitalent" : talents?.join("& ")}</span
+    ></a
   >
 </div>
 

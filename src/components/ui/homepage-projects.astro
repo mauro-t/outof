@@ -1,8 +1,13 @@
 ---
-import data from "../../assets/mock-data/projects.json";
+import { sanityClient } from "sanity:client";
 import ProjectPreview from "./project-preview.astro";
 
-const projects = data.slice(0, 4);
+const projects = await sanityClient.fetch(`*[_type == "project"]{
+  title,
+  talents,
+  listing_image,
+  "slug": slug.current
+}[0..4]`);
 ---
 
 <div
@@ -12,7 +17,7 @@ const projects = data.slice(0, 4);
 >
   <h4 class="text-center">selected work</h4>
   <div class="mt-6 space-y-5 md:mt-12 md:space-y-7.5">
-    {projects.map((project) => <ProjectPreview {...project} />)}
+    {projects.map((project: any) => <ProjectPreview {...project} />)}
   </div>
   <div class="mt-8 text-center">
     <a
