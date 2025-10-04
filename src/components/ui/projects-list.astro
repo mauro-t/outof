@@ -12,25 +12,8 @@ const projects = await sanityClient.fetch(`*[_type == "project"]{
 
 <div
   id="projects-list"
+  data-ts="project-previews"
   class="space-y-5 px-3 py-10 md:space-y-7.5 md:px-5 md:py-17"
 >
   {projects.map((project: any) => <ProjectPreview {...project} />)}
 </div>
-
-<script>
-  import { animate, inView, stagger } from "motion";
-
-  inView("#projects-list", () => {
-    animate([
-      ["#projects-list", { opacity: 1 }],
-      [
-        "#projects-list [data-project-preview]",
-        { y: [20, 0], opacity: [0, 1] },
-        { duration: 0.5, delay: stagger(0.2) },
-      ],
-    ]);
-    return () => {
-      animate([["#projects-list", { opacity: 0 }]]);
-    };
-  });
-</script>
