@@ -81,3 +81,7 @@
 :where([data-section]) {
   position: relative;
 }
+
+[data-text] {
+  opacity: 0;
+}

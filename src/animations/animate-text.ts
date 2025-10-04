@@ -8,12 +8,10 @@ export default function animateText() {
     const originalHTML = element.innerHTML;
     const { lines } = new SplitType(element, { types: "lines" });
 
-    element.classList.add("opacity-0");
-    element.classList.add("overflow-hidden");
     inView(
       element,
       () => {
-        element.classList.remove("opacity-0");
+        element.style.opacity = "1";
         const animationKeyframes =
           textType == "title"
             ? { y: ["100%", 0] }
