@@ -16,7 +16,7 @@ const { pathname } = Astro.url;
     style="transform: translateY(-120%);"
     class="header-content flex items-center justify-between"
   >
-    <a href="/" class="not-md:hidden">
+    <a href="/" class="transition-transform not-md:hidden hover:scale-105">
       <Logo class="w-33.25" />
     </a>
     <a href="/" class="md:hidden">
@@ -60,7 +60,7 @@ const { pathname } = Astro.url;
       </nav>
       <button
         id="newsletter-popup-toggle"
-        class="cursor-pointer rounded-full border px-3.5 py-2 font-semibold uppercase"
+        class="cursor-pointer rounded-full border px-3.5 py-2 font-semibold uppercase transition-colors hover:bg-black hover:text-white dark:hover:bg-accent dark:hover:text-black"
         >newsletter</button
       >
     </div>
