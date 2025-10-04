@@ -1,5 +1,6 @@
 ---
 import type { HTMLTag } from "astro/types";
+import FloatingEllipses from "./floating-ellipses.astro";
 
 type Props = {
   isHomepage?: boolean;
@@ -11,14 +12,18 @@ const TitleTag = isHomepage ? "h2" : "h1";
 
 <div
   data-section="short"
-  class="flex h-hero w-full flex-col items-center justify-center bg-black p-6 text-white md:aspect-9/4 md:h-auto dark:bg-accent dark:text-black"
+  class="relative flex h-hero w-full flex-col items-center justify-center bg-black p-6 text-white md:aspect-9/4 md:h-auto dark:bg-accent dark:text-black"
 >
-  <div class="overflow-hidden">
-    <TitleTag class="text-center font-serif text-title-2xl"
+  <FloatingEllipses />
+  <div class="relative overflow-hidden">
+    <TitleTag data-text="title" class="text-center font-serif text-title-2xl"
       >I nostri servizi</TitleTag
     >
   </div>
-  <p class="mt-6 max-w-174 text-center text-body-md md:mt-12">
+  <p
+    data-text="body"
+    class="relative mt-6 max-w-174 text-center text-body-md md:mt-12"
+  >
     Strategia, creatività e produzione si uniscono per accompagnare progetti che
     vogliono lasciare un segno, non solo un'impressione.
   </p>

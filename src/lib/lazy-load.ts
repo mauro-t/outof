@@ -33,10 +33,6 @@ export function lazyLoad(rootMargin: UseInViewOptions["margin"] = "512px 0px") {
 
         cleanup = module.default();
       })();
-
-      return () => {
-        if (cleanup) cleanup();
-      };
     },
     {
       margin: rootMargin,

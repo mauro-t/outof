@@ -56,6 +56,7 @@ import Footer from "./footer.astro";
     import { initSwiper } from "../../lib/swiper";
     import { animateLayerIn, animateLayerOut } from "../../animations/layout";
     import { animateSections } from "../../animations/animate-sections";
+    import animateText from "../../animations/animate-text";
 
     new Lenis({
       autoRaf: true,
@@ -77,6 +78,7 @@ import Footer from "./footer.astro";
 
     swup.hooks.on("page:view", () => {
       animateSections();
+      animateText();
       lazyLoad();
       initSwiper();
     });
@@ -85,6 +87,7 @@ import Footer from "./footer.astro";
     swup.hooks.on("animation:in:await", animateLayerOut);
 
     animateSections();
+    animateText();
     lazyLoad();
     initSwiper();
   </script>

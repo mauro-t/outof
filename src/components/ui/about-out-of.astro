@@ -12,11 +12,14 @@ import outOf from "../../assets/mock-data/out-of.json";
       .map(({ title, body }) => (
         <div class="not-md:text-center">
           <h4 class="overflow-hidden font-serif text-title-sm">
-            <div>
-              <span class="italic">OutOf</span>&nbsp;&nbsp;{title}
+            <div data-text="title">
+              <span class="italic">OutOf</span>
+              <span class="pl-[0.5rem]">{title}</span>
             </div>
           </h4>
-          <p class="mt-2">{body}</p>
+          <p data-text="body" class="mt-2">
+            {body}
+          </p>
         </div>
       ))
   }
