@@ -11,13 +11,12 @@ export default function animateText() {
     inView(
       element,
       () => {
-        element.style.opacity = "1";
         const animationKeyframes =
           textType == "title"
             ? { y: ["100%", 0] }
             : { y: ["0.5em", 0], opacity: [0, 1] };
         const duration = textType == "title" ? 0.6 : 0.75;
-        if (lines)
+        if (lines) {
           animate(lines, animationKeyframes, {
             duration,
             delay: stagger(0.13),
@@ -26,6 +25,10 @@ export default function animateText() {
             element.classList.remove("overflow-hidden");
             element.innerHTML = originalHTML;
           });
+          setTimeout(() => {
+            element.style.opacity = "1";
+          }, 50);
+        }
       },
       {
         margin: "0px 0px -200px 0px",
