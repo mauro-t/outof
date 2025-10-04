@@ -19,7 +19,7 @@ export default function Mask() {
       const svg = element.querySelector<SVGElement>(":scope svg")!;
       animate(
         svg,
-        { width: "100vmax" },
+        { width: "105vmax" },
         { ease: [0.6, 0, 0.2, 1], duration: 1.2 },
       );
 
