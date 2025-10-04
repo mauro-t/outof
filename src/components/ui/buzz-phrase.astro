@@ -12,10 +12,7 @@ const { animateByLine } = Astro.props;
 //   }}
 ---
 
-<div
-  data-animate-by-line={animateByLine}
-  class="relative font-serif text-title-xl leading-none"
->
+<div class="relative font-serif text-title-xl leading-none">
   <div class="contents text-right md:block">
     <LogoHtml class="inline-block" /> è un’agenzia
   </div>
@@ -24,30 +21,3 @@ const { animateByLine } = Astro.props;
   <div class="contents text-right md:block">messaggi sociali,</div>
   <div class="contents text-right md:block">ambientali e culturali</div>
 </div>
-
-<script>
-  // import { animate, inView, stagger } from "motion";
-
-  // function init() {
-  //   const abl = document.querySelector<HTMLElement>("[data-animate-by-line]");
-  //   if (abl) {
-  //     inView(
-  //       abl,
-  //       () => {
-  //         animate(
-  //           abl,
-  //           {
-  //             clipPath: "inset(0 0 0 0)",
-  //           },
-  //           {
-  //             duration: 0.75,
-  //           }
-  //         );
-  //       },
-  //       { margin: "0px 0px -200px 0px" }
-  //     );
-  //   }
-  // }
-
-  // init();
-</script>

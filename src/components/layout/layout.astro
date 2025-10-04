@@ -25,7 +25,7 @@ import Footer from "./footer.astro";
     class="bg-white text-body-sm text-black antialiased dark:bg-black dark:text-accent"
   >
     <Header />
-    <div id="content">
+    <div id="content" style="opacity: 0;">
       <main id="swup" class="relative z-10 bg-white dark:bg-black">
         <slot />
       </main>
@@ -60,6 +60,7 @@ import Footer from "./footer.astro";
     import { animateLayerIn, animateLayerOut } from "../../animations/layout";
     import { animateSections } from "../../animations/animate-sections";
     import animateText from "../../animations/animate-text";
+    import { animate } from "motion";
 
     new Lenis({
       autoRaf: true,
@@ -104,5 +105,9 @@ import Footer from "./footer.astro";
     animateText();
     lazyLoad();
     initSwipers();
+
+    document.addEventListener("DOMContentLoaded", () => {
+      animate("#content", { opacity: 1 }, { duration: 0.75 });
+    });
   </script>
 </html>
