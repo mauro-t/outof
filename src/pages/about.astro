@@ -13,12 +13,14 @@ import PurposeMissionVision from "../components/ui/purpose-mission-vision.astro"
   <AboutClaim />
   <PurposeMissionVision />
   <div data-section class="relative h-screen w-full">
-    <img
-      src="/mock-images/wwf2.jpg"
-      alt=""
-      class="absolute inset-0 h-full w-full object-cover md:object-[50%_80%]"
-      loading="lazy"
-    />
+    <picture>
+      <source srcset="/about-mobile.jpg" media="(max-width: 600px)" />
+      <img
+        src="/about-desktop.jpg"
+        class="absolute inset-0 h-full w-full object-cover"
+        loading="lazy"
+      />
+    </picture>
   </div>
   <AboutOutOf />
 </Layout>
