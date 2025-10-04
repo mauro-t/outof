@@ -6,12 +6,12 @@ export default function animateText() {
   elements.forEach((element) => {
     const textType = element.dataset.text;
 
-    element.classList.add("invisible");
+    element.classList.add("opacity-0");
     element.classList.add("overflow-hidden");
     inView(
       element,
       () => {
-        element.classList.remove("invisible");
+        element.classList.remove("opacity-0");
         const originalHTML = element.innerHTML;
         const { lines } = new SplitType(element, { types: "lines" });
         const animationKeyframes =
