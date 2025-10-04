@@ -6,17 +6,18 @@ type Props = {
 const { title, talents } = Astro.props;
 let talent = "";
 
-if (talents.length >= 2) {
-  talent = talents.slice(0, -1).join(", ") + " & " + talents.at(-1);
+if (talents.length > 2) {
+  talent = "Multitalent";
 } else {
-  talent = talents.length ? talents.join("") : "";
+  talent = talents.join("& ");
 }
 ---
 
 <div class="px-3 pt-10 md:px-5 md:pt-17">
   <h1 class="font-serif text-title-md">
-    {title}
-    <br />
-    <span data-text="body" class="italic">{talent}</span>
+    <div data-text="title">
+      {title}
+    </div>
+    <div data-text="body" class="italic">{talent}</div>
   </h1>
 </div>
