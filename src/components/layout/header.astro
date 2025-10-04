@@ -10,76 +10,71 @@ const { pathname } = Astro.url;
 ---
 
 <header
-  style="transform: translateY(-100%);"
-  class="peer sticky top-0 z-30 flex items-center justify-between bg-white px-3 py-1 text-body-rem md:px-5 md:py-3.5 dark:bg-black"
+  class="peer sticky top-0 z-30 bg-white px-3 py-1 text-body-rem md:px-5 md:py-3.5 dark:bg-black"
 >
-  <a href="/" class="not-md:hidden">
-    <Logo class="w-33.25" />
-  </a>
-  <a href="/" class="md:hidden">
-    <Glyph class="w-8 md:hidden" />
-  </a>
-  <ThemeSwitcher />
-  <div class="hidden items-center gap-10 uppercase lg:flex">
-    <nav class="contents">
-      <ul class="flex items-center gap-10 font-semibold">
-        <li
-          data-nav-item
-          data-current={pathname.includes("about")}
-          class={clsx(
-            "group relative",
-            pathname.includes("about") && "font-bold"
-          )}
-        >
-          <a href="/about">about</a>
-          <span
-            class="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100 group-data-[current='true']:scale-x-100"
-          ></span>
-        </li>
-        <li
-          data-nav-item
-          data-current={pathname.includes("services")}
-          class={clsx(
-            "group relative",
-            pathname.includes("services") && "font-bold"
-          )}
-        >
-          <a href="/services">servizi</a>
-          <span
-            class="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100 group-data-[current='true']:scale-x-100"
-          ></span>
-        </li>
-        <li
-          data-nav-item
-          data-current={pathname.includes("portfolio")}
-          class={clsx(
-            "group relative",
-            pathname.includes("portfolio") && "font-bold"
-          )}
-        >
-          <a href="/portfolio">portfolio</a>
-          <span
-            class="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100 group-data-[current='true']:scale-x-100"
-          ></span>
-        </li>
-      </ul>
-    </nav>
-    <button
-      id="newsletter-popup-toggle"
-      class="cursor-pointer rounded-full border px-3.5 py-2 font-semibold uppercase"
-      >newsletter</button
-    >
-  </div>
-  <div class="lg:hidden">
-    <label for="mobile-menu-open" class="font-semibold uppercase">
-      <input
-        type="radio"
-        name="mobile-menu-toggle"
-        id="mobile-menu-open"
-        class="sr-only"
-      />
-      Menu
-    </label>
+  <div
+    style="transform: translateY(-120%);"
+    class="header-content flex items-center justify-between"
+  >
+    <a href="/" class="not-md:hidden">
+      <Logo class="w-33.25" />
+    </a>
+    <a href="/" class="md:hidden">
+      <Glyph class="w-8 md:hidden" />
+    </a>
+    <ThemeSwitcher />
+    <div class="hidden items-center gap-10 uppercase lg:flex">
+      <nav class="contents">
+        <ul class="flex items-center gap-10 font-semibold">
+          <li
+            data-nav-item="about"
+            data-current={pathname.includes("about")}
+            class={clsx("group relative data-[current='true']:font-bold")}
+          >
+            <a href="/about">about</a>
+            <span
+              class="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100 group-data-[current='true']:scale-x-100"
+            ></span>
+          </li>
+          <li
+            data-nav-item="services"
+            data-current={pathname.includes("services")}
+            class={clsx("group relative data-[current='true']:font-bold")}
+          >
+            <a href="/services">servizi</a>
+            <span
+              class="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100 group-data-[current='true']:scale-x-100"
+            ></span>
+          </li>
+          <li
+            data-nav-item="portfolio"
+            data-current={pathname.includes("portfolio")}
+            class={clsx("group relative data-[current='true']:font-bold")}
+          >
+            <a href="/portfolio">portfolio</a>
+            <span
+              class="absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100 group-data-[current='true']:scale-x-100"
+            ></span>
+          </li>
+        </ul>
+      </nav>
+      <button
+        id="newsletter-popup-toggle"
+        class="cursor-pointer rounded-full border px-3.5 py-2 font-semibold uppercase"
+        >newsletter</button
+      >
+    </div>
+    <div class="lg:hidden">
+      <label for="mobile-menu-open" class="font-semibold uppercase">
+        <input
+          type="radio"
+          name="mobile-menu-toggle"
+          id="mobile-menu-open"
+          class="sr-only"
+        />
+        Menu
+      </label>
+    </div>
   </div>
 </header>
 
@@ -145,7 +140,7 @@ const { pathname } = Astro.url;
 </div>
 
 <script>
-  import { animate, stagger, type AnimationSequence } from "motion";
+  import { animate, type AnimationSequence } from "motion";
 
   function init() {
     const newsletterPopup = document.getElementById("newsletter-popup");
@@ -165,12 +160,7 @@ const { pathname } = Astro.url;
       newsletterPopup?.classList.add("hidden");
     });
     const sequence: AnimationSequence = [
-      ["header", { y: 0 }, { duration: 0.7 }],
-      // [
-      //   "[data-nav-item]",
-      //   { opacity: 1 },
-      //   { duration: 0.45, delay: stagger(0.3) },
-      // ],
+      [".header-content", { y: 0 }, { duration: 0.7 }],
     ];
 
     animate(sequence);

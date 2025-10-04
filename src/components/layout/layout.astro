@@ -66,6 +66,8 @@ import Footer from "./footer.astro";
     const footer = document.querySelector<HTMLElement>("footer")!;
     const footerSpace = document.getElementById("footer-space");
 
+    const navItems = document.querySelectorAll<HTMLElement>("[data-nav-item]");
+
     function setFooterSpace() {
       footerSpace?.style.setProperty(
         "--footer-height",
@@ -76,7 +78,16 @@ import Footer from "./footer.astro";
     new ResizeObserver(setFooterSpace).observe(footer);
     setFooterSpace();
 
-    swup.hooks.on("page:view", () => {
+    swup.hooks.on("page:view", (view) => {
+      navItems.forEach((item) => {
+        const current = view.to.url;
+        if (current.includes(item.dataset.navItem!)) {
+          item.dataset.current = "true";
+        } else {
+          item.dataset.current = "false";
+        }
+      });
+
       animateSections();
       animateText();
       lazyLoad();
