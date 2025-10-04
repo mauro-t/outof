@@ -24,20 +24,3 @@ const imgs = Astro.props.images.map((i) => urlFor(i).width(720).url());
     }
   </div>
 </div>
-<script>
-  import Swiper from "swiper";
-
-  new Swiper(".swiper-project-block", {
-    spaceBetween: 12,
-    breakpoints: {
-      768: {
-        slidesPerView: 2.5,
-        slidesOffsetBefore: 20,
-        slidesOffsetAfter: 20,
-      },
-    },
-    slidesPerView: 1.15,
-    slidesOffsetBefore: 12,
-    slidesOffsetAfter: 12,
-  });
-</script>

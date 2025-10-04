@@ -1,5 +1,8 @@
 ---
 import "../../styles.css";
+import "swiper/css";
+import "swiper/css/pagination";
+
 import Header from "./header.astro";
 import Footer from "./footer.astro";
 ---
@@ -53,7 +56,7 @@ import Footer from "./footer.astro";
     import Swup from "swup";
 
     import { lazyLoad } from "../../lib/lazy-load";
-    import { initSwiper } from "../../lib/swiper";
+    import { initSwipers } from "../../lib/swiper";
     import { animateLayerIn, animateLayerOut } from "../../animations/layout";
     import { animateSections } from "../../animations/animate-sections";
     import animateText from "../../animations/animate-text";
@@ -91,7 +94,7 @@ import Footer from "./footer.astro";
       animateSections();
       animateText();
       lazyLoad();
-      initSwiper();
+      initSwipers();
     });
 
     swup.hooks.on("animation:out:await", animateLayerIn);
@@ -100,6 +103,6 @@ import Footer from "./footer.astro";
     animateSections();
     animateText();
     lazyLoad();
-    initSwiper();
+    initSwipers();
   </script>
 </html>
