@@ -18,7 +18,9 @@ export default function FloatingEllipses() {
     options: {
       width: canvasWidth,
       height: canvasHeight,
-      background: "#201409",
+      background: document.documentElement.classList.contains("dark")
+        ? "#e4fe52"
+        : "#201409",
       wireframes: false,
     },
   });
@@ -49,10 +51,7 @@ export default function FloatingEllipses() {
 
   let bodies: Matter.Body[] = [];
 
-  function generateShape(
-    position?: { x: number; y: number; angle?: number },
-    color = "#f1ede9",
-  ) {
+  function generateShape(position?: { x: number; y: number; angle?: number }) {
     const shape = Bodies.circle(
       position?.x ?? Math.random() * canvasWidth,
       position?.y ?? Math.random() * canvasHeight,
@@ -63,7 +62,9 @@ export default function FloatingEllipses() {
         density: 0.002, // lighter feel
         render: {
           fillStyle: "transparent",
-          strokeStyle: color,
+          strokeStyle: document.documentElement.classList.contains("dark")
+            ? "#201409"
+            : "#f1ede9",
           lineWidth: 1,
         },
       },
@@ -154,14 +155,11 @@ export default function FloatingEllipses() {
   const mutationObserver = new MutationObserver(([entry]) => {
     const dark = (entry.target as HTMLElement).className.includes("dark");
     const newBodies = bodies.map((body) =>
-      generateShape(
-        {
-          x: body.position.x,
-          y: body.position.y,
-          angle: body.angle,
-        },
-        dark ? "#201409" : "#f1ede9",
-      ),
+      generateShape({
+        x: body.position.x,
+        y: body.position.y,
+        angle: body.angle,
+      }),
     );
     render.options.background = dark ? "#e4fe52" : "#201409";
     World.remove(world, bodies);
