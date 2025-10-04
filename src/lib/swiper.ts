@@ -26,6 +26,10 @@ export function initSwipers() {
     },
     slidesOffsetBefore: 12,
     slidesOffsetAfter: 12,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
     pagination: {
       el: ".swiper-pagination",
       bulletClass: "size-2 bg-white rounded-full inline-block",
