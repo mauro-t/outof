@@ -5,6 +5,8 @@ export default function animateText() {
   const elements = document.querySelectorAll<HTMLElement>("[data-text]");
   elements.forEach((element) => {
     const textType = element.dataset.text;
+    const originalHTML = element.innerHTML;
+    const { lines } = new SplitType(element, { types: "lines" });
 
     element.classList.add("opacity-0");
     element.classList.add("overflow-hidden");
@@ -12,8 +14,6 @@ export default function animateText() {
       element,
       () => {
         element.classList.remove("opacity-0");
-        const originalHTML = element.innerHTML;
-        const { lines } = new SplitType(element, { types: "lines" });
         const animationKeyframes =
           textType == "title"
             ? { y: ["100%", 0] }
