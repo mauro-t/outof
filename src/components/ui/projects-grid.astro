@@ -23,17 +23,16 @@ import clsx from "clsx";
 const rows = [
   { values: [0, 1], justify: "justify-start" },
   { values: [2, 3], justify: "justify-end" },
-  { values: [4], justify: "justify-center" },
-  { values: [5, 6], justify: "justify-between" },
-  { values: [7], justify: "justify-center" },
-  { values: [8], justify: "justify-start" },
+  { values: [4, 5], justify: "justify-start" },
+  { values: [6], justify: "justify-center" },
+  { values: [7, 8], justify: "justify-between" },
 ];
 ---
 
 <div class="space-y-5 p-3 md:space-y-17 md:p-5">
   {
     rows.map((row) => (
-      <div class={clsx("row flex h-[50vh] gap-2", row.justify)}>
+      <div class={clsx("row flex h-120 gap-2", row.justify)}>
         {row.values.map((item) => (
           <div class="flex">
             <ProjectCard {...projects[item]} />
