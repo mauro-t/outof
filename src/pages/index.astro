@@ -27,14 +27,16 @@ import Mask from "../components/global/mask.astro";
   </div>
   <OurServices isHomepage />
   <HomepageProjects />
-  <div data-section="last" class="relative h-hero bg-black p-3 md:p-5">
+  <div data-section="last" class="relative bg-white dark:bg-black">
     <video
-      class="absolute inset-0 h-full w-full"
+      class="w-full"
       src="/mock-images/placeholder-video.mp4"
       muted
       plays-inline
       autoplay
       loop></video>
-    <NewsletterBox />
+    <div class="absolute top-10 left-10">
+      <NewsletterBox />
+    </div>
   </div>
 </Layout>
