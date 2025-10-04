@@ -24,7 +24,6 @@ export function animateLayerIn() {
       { y: 0 },
       { at: "-0.2", duration: 0.45, ease: "easeIn" },
     ],
-    [svg, { scaleX: 1 }, { at: "-0.2", duration: 1, ease: "easeInOut" }],
   ]).finished;
 }
 
@@ -50,7 +49,7 @@ export async function animateLayerOut() {
   animate(
     [
       [pageTransitionLayer, { y: "100%" }],
-      [svg, { scale: 1, scaleX: 0.01 }],
+      [svg, { scale: 1 }],
     ],
     { duration: 0 },
   );
