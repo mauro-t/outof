@@ -6,6 +6,7 @@ export default function animateText() {
   elements.forEach((element) => {
     const textType = element.dataset.text;
     const originalHTML = element.innerHTML;
+    const { lines } = new SplitType(element, { types: "lines" });
 
     inView(
       element,
@@ -14,7 +15,6 @@ export default function animateText() {
           textType == "title"
             ? { y: ["100%", 0] }
             : { y: ["0.5em", 0], opacity: [0, 1] };
-        const { lines } = new SplitType(element, { types: "lines" });
         const duration = textType == "title" ? 0.6 : 0.75;
         if (lines) {
           animate(lines, animationKeyframes, {
