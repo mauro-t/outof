@@ -50,7 +50,7 @@ const heroUrl = project.main_image_desktop
       if (p._type == "full_width_section") {
         const content = p.content[0];
         if (content._type == "video_block")
-          return <div set:html={content.vimeoId} />;
+          return <div class="px-3 md:px-5" set:html={content.vimeoId} />;
         if (content._type == "carousel_block") {
           const layout = content.layout;
           if (layout == "multi")
