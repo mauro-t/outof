@@ -5,6 +5,8 @@ import "swiper/css/pagination";
 
 import Header from "./header.astro";
 import Footer from "./footer.astro";
+import PopupNewsletter from "../ui/popup-newsletter.astro";
+import PopupEcoview from "../ui/popup-ecoview.astro";
 ---
 
 <html lang="en" class="scrollbar-none">
@@ -50,6 +52,8 @@ import Footer from "./footer.astro";
           class="fill-black dark:fill-accent"></path>
       </svg>
     </div>
+    <PopupNewsletter />
+    <PopupEcoview />
   </body>
   <script>
     import Lenis from "lenis";

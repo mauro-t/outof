@@ -1,0 +1,38 @@
+---
+import NewsletterBox from "./newsletter-box.astro";
+---
+
+<div
+  data-ts="popup-newsletter"
+  id="newsletter-popup"
+  style="opacity: 0; pointer-events: none;"
+  class="fixed inset-0 z-50 flex h-svh items-center justify-center bg-black/25 p-3 md:p-5"
+>
+  <div
+    class="relative flex aspect-33/40 w-full max-w-[33.75rem] items-center justify-center overflow-hidden rounded-3xl px-3"
+  >
+    <video
+      src="/newsletter-bg.mp4"
+      autoplay
+      loop
+      playsinline
+      muted
+      class="absolute inset-0 h-full w-full object-cover"></video>
+    <button data-newsletter-close class="absolute top-5 right-5 cursor-pointer"
+      ><svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="28"
+        height="28"
+        viewBox="0 0 28 28"
+        fill="none"
+      >
+        <path
+          d="M3.26659 27.4166L0.583252 24.7333L11.3166 13.9999L0.583252 3.26659L3.26659 0.583252L13.9999 11.3166L24.7333 0.583252L27.4166 3.26659L16.6833 13.9999L27.4166 24.7333L24.7333 27.4166L13.9999 16.6833L3.26659 27.4166Z"
+          fill="#F7F7F7"></path>
+      </svg></button
+    >
+    <div class="relative">
+      <NewsletterBox />
+    </div>
+  </div>
+</div>

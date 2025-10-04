@@ -59,7 +59,7 @@ const { pathname } = Astro.url;
         </ul>
       </nav>
       <button
-        id="newsletter-popup-toggle"
+        data-newsletter-trigger
         class="cursor-pointer rounded-full border px-3.5 py-2 font-semibold uppercase transition-colors hover:bg-black hover:text-white dark:hover:bg-accent dark:hover:text-black"
         >newsletter</button
       >
@@ -117,48 +117,11 @@ const { pathname } = Astro.url;
     </div>
   </div>
 </aside>
-<div
-  id="newsletter-popup"
-  class="fixed inset-0 z-50 hidden bg-black/20 backdrop-blur-[6px] lg:inset-auto lg:top-header lg:right-5 lg:translate-y-3 lg:bg-transparent lg:backdrop-blur-none"
->
-  <div class="flex h-full w-full items-center justify-center lg:contents">
-    <div class="relative w-fit">
-      <button
-        id="newsletter-popup-close"
-        class="absolute top-3 right-6 z-10 text-white dark:text-black">✕</button
-      >
-      <div class="relative overflow-hidden rounded-3xl">
-        <img
-          src="/mock-images/placeholder2.jpg"
-          alt=""
-          class="absolute inset-0 h-full w-full object-center"
-        />
-        <NewsletterBox />
-      </div>
-    </div>
-  </div>
-</div>
 
 <script>
   import { animate, type AnimationSequence } from "motion";
 
   function init() {
-    const newsletterPopup = document.getElementById("newsletter-popup");
-    const toggle = document.getElementById("newsletter-popup-toggle");
-    const open = document.getElementById("newsletter-popup-open");
-    const close = document.getElementById("newsletter-popup-close");
-
-    toggle?.addEventListener("click", () => {
-      newsletterPopup?.classList.toggle("hidden");
-    });
-
-    open?.addEventListener("click", () => {
-      newsletterPopup?.classList.remove("hidden");
-    });
-
-    close?.addEventListener("click", () => {
-      newsletterPopup?.classList.add("hidden");
-    });
     const sequence: AnimationSequence = [
       [".header-content", { y: 0 }, { duration: 0.7 }],
     ];
