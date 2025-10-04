@@ -11,12 +11,14 @@ import Mask from "../components/global/mask.astro";
 <Layout>
   <HomepageHero />
   <div data-section class="relative h-screen w-full overflow-hidden">
-    <img
-      src="/mock-images/wwf2.jpg"
-      alt=""
-      class="absolute inset-0 h-full w-full object-cover md:object-[50%_80%]"
-      loading="lazy"
-    />
+    <picture>
+      <source srcset="/hp-mobile.jpg" media="(max-width: 600px)" />
+      <img
+        src="/hp-desktop.jpg"
+        class="absolute inset-0 h-full w-full object-cover md:object-[50%_80%]"
+        loading="lazy"
+      />
+    </picture>
   </div>
   <div
     data-section

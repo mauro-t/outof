@@ -22,8 +22,10 @@ export function initSwipers() {
       768: {
         slidesOffsetBefore: 20,
         slidesOffsetAfter: 20,
+        spaceBetween: 20,
       },
     },
+    spaceBetween: 12,
     slidesOffsetBefore: 12,
     slidesOffsetAfter: 12,
     autoplay: {
