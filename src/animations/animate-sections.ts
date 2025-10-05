@@ -9,7 +9,7 @@ export function animateSections() {
     const y = sectionType == "last" ? [0] : [0, 300];
     const offset: UseScrollOptions["offset"] =
       sectionType == "short"
-        ? ["start 72px", "end start"]
+        ? ["start start", "end start"]
         : ["end end", "end start"];
     scroll(animate(section, { y }), { target: section, offset });
   });

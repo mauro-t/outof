@@ -18,9 +18,7 @@ export default function FloatingEllipses() {
     options: {
       width: canvasWidth,
       height: canvasHeight,
-      background: document.documentElement.classList.contains("dark")
-        ? "#e4fe52"
-        : "#201409",
+      background: "transparent",
       wireframes: false,
     },
   });
@@ -36,10 +34,22 @@ export default function FloatingEllipses() {
     const h = canvas.getBoundingClientRect().height;
 
     boundaries = [
-      Bodies.rectangle(w / 2, -25, w, 50, { isStatic: true }),
-      Bodies.rectangle(w / 2, h + 25, w, 50, { isStatic: true }),
-      Bodies.rectangle(-25, h / 2, 50, h, { isStatic: true }),
-      Bodies.rectangle(w + 25, h / 2, 50, h, { isStatic: true }),
+      Bodies.rectangle(w / 2, -25, w, 50, {
+        isStatic: true,
+        render: { visible: false },
+      }),
+      Bodies.rectangle(w / 2, h + 25, w, 50, {
+        isStatic: true,
+        render: { visible: false },
+      }),
+      Bodies.rectangle(-25, h / 2, 50, h, {
+        isStatic: true,
+        render: { visible: false },
+      }),
+      Bodies.rectangle(w + 25, h / 2, 50, h, {
+        isStatic: true,
+        render: { visible: false },
+      }),
     ];
     World.add(world, boundaries);
 
@@ -52,9 +62,10 @@ export default function FloatingEllipses() {
   let bodies: Matter.Body[] = [];
 
   function generateShape(position?: { x: number; y: number; angle?: number }) {
-    const shape = Bodies.circle(
+    const shape = Bodies.polygon(
       position?.x ?? Math.random() * canvasWidth,
       position?.y ?? Math.random() * canvasHeight,
+      50,
       innerWidth >= 768 ? 100 : 75,
       {
         restitution: 0.3, // softer bounce
