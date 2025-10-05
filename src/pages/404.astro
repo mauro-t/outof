@@ -1,0 +1,25 @@
+---
+import Layout from "../components/layout/layout.astro";
+import FloatingEllipses from "../components/ui/floating-ellipses.astro";
+---
+
+<Layout>
+  <div
+    class="relative flex h-hero flex-col items-center justify-center gap-12 bg-black text-white dark:bg-accent dark:text-black"
+  >
+    <FloatingEllipses />
+    <div class="relative">
+      <h1 class="text-center font-serif text-title-2xl italic">
+        404 - Not Found
+      </h1>
+      <p class="mt-12 text-center">
+        <a href="/" class="group relative inline-block w-fit cursor-pointer">
+          Torna alla home
+          <span
+            class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100"
+          ></span>
+        </a>
+      </p>
+    </div>
+  </div>
+</Layout>
