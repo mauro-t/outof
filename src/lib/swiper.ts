@@ -1,5 +1,5 @@
 import Swiper from "swiper";
-import { Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 
 export function initSwipers() {
   new Swiper(".swiper", {
@@ -17,19 +17,16 @@ export function initSwipers() {
   });
 
   new Swiper(".swiper-fullscreen", {
-    modules: [Pagination],
+    modules: [Pagination, Autoplay],
     breakpoints: {
       768: {
         slidesOffsetBefore: 20,
-        slidesOffsetAfter: 20,
-        spaceBetween: 20,
       },
     },
-    spaceBetween: 12,
     slidesOffsetBefore: 12,
-    slidesOffsetAfter: 12,
+    loop: true,
     autoplay: {
-      delay: 2500,
+      delay: 4000,
       disableOnInteraction: false,
     },
     pagination: {

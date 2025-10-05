@@ -16,7 +16,12 @@ const imgs = Astro.props.images.map((i) => urlFor(i).width(2048).url());
     {
       imgs.map((img) => (
         <div class="swiper-slide relative">
-          <img src={img} class="absolute inset-0 h-full w-full object-cover" />
+          <div class="relative h-full w-[calc(100%-24px)] md:w-[calc(100%-40px)]">
+            <img
+              src={img}
+              class="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
         </div>
       ))
     }
