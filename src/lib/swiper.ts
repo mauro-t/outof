@@ -62,7 +62,7 @@ export function initSwipers() {
   );
 
   imagesBlock.forEach((el) => {
-    new Swiper(el, {
+    const swiper = new Swiper(el, {
       spaceBetween: 12,
       breakpoints: {
         768: {
@@ -71,9 +71,19 @@ export function initSwipers() {
           slidesOffsetAfter: 20,
         },
       },
+      loop: true,
       slidesPerView: 1.15,
       slidesOffsetBefore: 12,
       slidesOffsetAfter: 12,
     });
+    inView(
+      el,
+      () => {
+        setTimeout(() => {
+          swiper.slideNext(2000);
+        }, 2000);
+      },
+      { margin: "0px 0px -300px 0px" },
+    );
   });
 }
