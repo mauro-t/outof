@@ -9,16 +9,18 @@ import ServicesList from "../components/ui/services-list.astro";
 <Layout>
   <OurServices />
   <ServicesList />
-  <div data-section="short" class="bg-white py-10 md:py-17 dark:bg-black">
-    <h4
-      data-text="title"
-      class="mb-5 px-3 font-serif text-title-sm md:mb-10 md:px-5"
-    >
-      Alcuni dei nostri progetti
-    </h4>
-    <ProjectsSlider />
-  </div>
-  <div data-section="last" class="bg-white md:py-28 dark:bg-black">
-    <ContactUs />
+  <div data-section="last">
+    <div class="bg-white py-10 md:py-17 dark:bg-black">
+      <h4
+        data-text="title"
+        class="mb-5 px-3 font-serif text-title-sm md:mb-10 md:px-5"
+      >
+        Alcuni dei nostri progetti
+      </h4>
+      <ProjectsSlider />
+    </div>
+    <div class="bg-white md:py-28 dark:bg-black">
+      <ContactUs />
+    </div>
   </div>
 </Layout>

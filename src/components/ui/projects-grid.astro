@@ -32,9 +32,14 @@ const rows = [
 <div class="space-y-5 p-3 md:space-y-17 md:p-5">
   {
     rows.map((row) => (
-      <div class={clsx("row flex h-120 gap-2", row.justify)}>
+      <div
+        class={clsx(
+          "row flex flex-col gap-5 md:h-120 md:flex-row md:gap-2",
+          row.justify
+        )}
+      >
         {row.values.map((item) => (
-          <div class="flex">
+          <div class="flex not-md:*:w-full">
             <ProjectCard {...projects[item]} />
           </div>
         ))}

@@ -29,15 +29,20 @@ import Mask from "../components/global/mask.astro";
   </div>
   <OurServices isHomepage />
   <HomepageProjects />
-  <div data-section="last" class="relative bg-white dark:bg-black">
+  <div
+    data-section="last"
+    class="relative bg-white not-md:h-screen dark:bg-black"
+  >
     <video
-      class="w-full"
+      class="md:statice absolute inset-0 h-full w-full object-cover"
       src="/mock-images/placeholder-video.mp4"
       muted
-      plays-inline
+      playsinline
       autoplay
       loop></video>
-    <div class="absolute top-10 left-10">
+    <div
+      class="sticky top-[calc(var(--header-height)+12px)] left-0 px-3 py-3 md:absolute md:top-10 md:left-10"
+    >
       <NewsletterBox />
     </div>
   </div>
