@@ -89,6 +89,16 @@
   }
 }
 
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-black);
+}
+
+.dark ::selection {
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
 :where([data-section]) {
   position: relative;
 }
