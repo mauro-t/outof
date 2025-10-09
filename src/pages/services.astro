@@ -6,25 +6,89 @@ import ContactUs from "../components/ui/contact-us.astro";
 import OurServices from "../components/ui/our-services.astro";
 import ProjectsSlider from "../components/ui/projects-slider.astro";
 import ServicesList from "../components/ui/services-list.astro";
+import Mask from "../components/global/mask.astro";
+import FloatingEllipses from "../components/ui/floating-ellipses.astro";
+import clsx from "clsx";
+import { sectionBg } from "../lib/section-bg";
 
-const page = await sanityClient.fetch(`*[_type=="services"][0]`);
+const page = await sanityClient.fetch(`*[_type=="services"]{
+    blocks[]{
+      ...,
+      _type=="projects_slider_block"=>{
+        ...,
+        projects[]->{
+          "slug": slug.current,
+          title,
+          talents,
+          listing_image{
+              asset->{
+                url,
+                metadata {
+                  dimensions {
+                    aspectRatio
+                  },
+                },
+              }
+            }
+          }
+        }
+      }
+    }[0]`);
 ---
 
 <Layout>
-  <OurServices {...page.blocks[0]} />
-  <ServicesList />
-  <div data-section="last">
-    <div class="bg-white py-10 md:py-17 dark:bg-black">
-      <h4
-        data-text="title"
-        class="mb-5 px-3 font-serif text-title-sm md:mb-10 md:px-5"
-      >
-        Alcuni dei nostri progetti
-      </h4>
-      <ProjectsSlider />
-    </div>
-    <div class="bg-white md:py-28 dark:bg-black">
-      <ContactUs />
-    </div>
-  </div>
+  {
+    page.blocks.map((block: any, i: number, arr: any[]) => {
+      const last = i == arr.length - 1;
+      if (block._type == "services_block")
+        return (
+          <div data-section={last ? "last" : "short"}>
+            <OurServices {...block} />
+            {last && (
+              <div class="bg-white md:py-28 dark:bg-black">
+                <ContactUs />
+              </div>
+            )}
+          </div>
+        );
+      if (block._type == "services_list_block")
+        return (
+          <div>
+            <ServicesList {...block} />
+            {last && (
+              <div class="bg-white md:py-28 dark:bg-black">
+                <ContactUs />
+              </div>
+            )}
+          </div>
+        );
+      if (block._type == "projects_slider_block")
+        return (
+          <div
+            data-section={last && "last"}
+            class={clsx(sectionBg(block.background))}
+          >
+            {(block.background == "mask" ||
+              block.background == "mask-not-inverted") && (
+              <Mask invert={block.background == "mask"} />
+            )}
+            {block.background == "ellipses" && <FloatingEllipses />}
+            <div class="relative py-10 md:py-17">
+              <h4
+                data-text="title"
+                class="mb-5 px-3 font-serif text-title-sm md:mb-10 md:px-5"
+              >
+                {block.title}
+              </h4>
+              <ProjectsSlider projects={block.projects} />
+            </div>
+            {last && (
+              <div class="bg-white md:py-28 dark:bg-black">
+                <ContactUs />
+              </div>
+            )}
+          </div>
+        );
+    })
+  }
 </Layout>

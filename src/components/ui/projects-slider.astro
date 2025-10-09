@@ -5,7 +5,13 @@ import { sanityClient } from "sanity:client";
 
 import ProjectCard from "./project-card.astro";
 
-const projects = await sanityClient.fetch(`*[_type == "project"]{
+type Props = {
+  projects?: any;
+};
+
+let projects = Astro.props.projects;
+
+projects ??= await sanityClient.fetch(`*[_type == "project"]{
   title,
   talents,
   "slug": slug.current,
