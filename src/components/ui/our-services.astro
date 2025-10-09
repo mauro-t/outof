@@ -25,17 +25,17 @@ const TitleTag = isHomepage ? "h2" : "h1";
   {background == "mask" && <Mask invert />}
   <div class="relative overflow-hidden">
     <TitleTag data-text="title" class="text-center font-serif text-title-2xl"
-      >{content.title}</TitleTag
+      >{content?.title}</TitleTag
     >
   </div>
   <p
     data-text="body"
     class="relative mt-6 max-w-174 text-center text-body-md md:mt-12"
   >
-    {content.description}
+    {content?.description}
   </p>
   {
-    content.cta && (
+    content?.cta && (
       <div class="mt-8">
         <a
           href="/services"

@@ -1,6 +1,6 @@
 ---
 import clsx from "clsx";
-import LogoHtml from "../global/logo-html.astro";
+
 type Props = {
   content: { value: string; align: "right" | "left" | "center" }[];
 };
@@ -13,13 +13,14 @@ const alignments = {
   center: "text-center",
 };
 
-const lines = content.map((line) => ({
-  align: alignments[line.align],
-  value: line.value.replace(
-    "OutOf",
-    "<div class='font-serif inline-block'><span class='italic'>O</span>ut<span class='italic'>O</span>f</div>"
-  ),
-}));
+const lines =
+  content?.map((line) => ({
+    align: alignments[line.align],
+    value: line.value.replace(
+      "OutOf",
+      "<div class='font-serif inline-block'><span class='italic'>O</span>ut<span class='italic'>O</span>f</div>"
+    ),
+  })) ?? [];
 ---
 
 <div class="relative font-serif text-title-buzzphrase leading-none">

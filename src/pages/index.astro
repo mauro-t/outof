@@ -89,7 +89,7 @@ console.log(page.blocks.find((b: any) => b._type == "newsletter_block"));
       if (block._type == "newsletter_block")
         return (
           <div
-            data-section="last"
+            data-section={i == arr.length - 1 && "last"}
             class="relative bg-white not-md:h-screen dark:bg-black"
           >
             <video
