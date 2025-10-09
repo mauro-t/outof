@@ -1,13 +1,17 @@
 ---
+import { sanityClient } from "sanity:client";
+
 import Layout from "../components/layout/layout.astro";
 import ContactUs from "../components/ui/contact-us.astro";
 import OurServices from "../components/ui/our-services.astro";
 import ProjectsSlider from "../components/ui/projects-slider.astro";
 import ServicesList from "../components/ui/services-list.astro";
+
+const page = await sanityClient.fetch(`*[_type=="services"][0]`);
 ---
 
 <Layout>
-  <OurServices />
+  <OurServices {...page.blocks[0]} />
   <ServicesList />
   <div data-section="last">
     <div class="bg-white py-10 md:py-17 dark:bg-black">

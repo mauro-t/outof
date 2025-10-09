@@ -1,14 +1,18 @@
 ---
+import { sanityClient } from "sanity:client";
+
 import Layout from "../components/layout/layout.astro";
 import AboutClaim from "../components/ui/about-claim.astro";
 import AboutOutOf from "../components/ui/about-out-of.astro";
 import BuzzPhrase from "../components/ui/buzz-phrase.astro";
 import PurposeMissionVision from "../components/ui/purpose-mission-vision.astro";
+
+const page = await sanityClient.fetch(`*[_type=="about"][0]`);
 ---
 
 <Layout>
   <div data-section class="min-h-screen p-3 md:p-5">
-    <BuzzPhrase animateByLine />
+    <BuzzPhrase content={page.blocks[0].content} />
   </div>
   <AboutClaim />
   <PurposeMissionVision />
