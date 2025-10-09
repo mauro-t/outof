@@ -28,7 +28,7 @@ const page = await sanityClient.fetch(
       },
       _type=="projects_block"=>{
         ...,
-        projects[]->{
+        projects[]->|order(orderRank){
           "slug": slug.current,
           title,
           talents,

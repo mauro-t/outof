@@ -2,7 +2,8 @@
 import { sanityClient } from "sanity:client";
 import ProjectPreview from "./project-preview.astro";
 
-const projects = await sanityClient.fetch(`*[_type == "project"]{
+const projects =
+  await sanityClient.fetch(`*[_type == "project"]|order(orderRank){
   title,
   talents,
   "slug": slug.current,

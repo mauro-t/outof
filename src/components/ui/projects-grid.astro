@@ -1,7 +1,8 @@
 ---
 import { sanityClient } from "sanity:client";
 
-const projects = await sanityClient.fetch(`*[_type == "project"]{
+const projects =
+  await sanityClient.fetch(`*[_type == "project"]|order(orderRank){
   title,
   talents,
   "slug": slug.current,
@@ -17,64 +18,72 @@ const projects = await sanityClient.fetch(`*[_type == "project"]{
   }
 }`);
 
+const grid = await sanityClient.fetch(`*[_type == "projects-grid"]{
+  rows[]{
+    align,
+    projects[]->{
+      title,
+      talents,
+      "slug": slug.current,
+      listing_image{
+        asset->{
+          url,
+          metadata {
+            dimensions {
+              aspectRatio
+            },
+          },
+        }
+      }
+    }
+  }
+}[0]`);
+const gridProjects = grid.rows.flatMap((r: any) => r.projects);
+const missingProjects = projects.filter(
+  (p: any) => !gridProjects.some((gP: any) => gP.slug == p.slug)
+);
+
 import ProjectCard from "./project-card.astro";
 import clsx from "clsx";
 
-const rows = [
-  { values: [0, 1], justify: "justify-start" },
-  { values: [2, 3], justify: "justify-end" },
-  { values: [4, 5], justify: "justify-start" },
-  { values: [6], justify: "justify-center" },
-  { values: [7, 8], justify: "justify-between" },
-];
+const rowAlign = {
+  left: "justify-start",
+  right: "justify-end",
+  center: "justify-center",
+  between: "justify-between",
+};
 ---
 
 <div class="space-y-5 p-3 md:space-y-17 md:p-5">
   {
-    rows.map((row) => (
+    grid.rows.map((row: any) => (
       <div
         class={clsx(
           "row flex flex-col gap-5 md:h-120 md:flex-row md:gap-2",
-          row.justify
+          rowAlign[row.align as keyof typeof rowAlign]
         )}
       >
-        {row.values.map((item) => (
+        {row.projects.map((item: any) => (
           <div class="flex not-md:*:w-full">
-            <ProjectCard {...projects[item]} />
+            <ProjectCard {...item} />
           </div>
         ))}
       </div>
     ))
   }
+  {
+    missingProjects.length && (
+      <div
+        class={clsx(
+          "row flex flex-col flex-wrap gap-5 md:h-120 md:flex-row md:gap-2"
+        )}
+      >
+        {missingProjects.map((item: any) => (
+          <div class="flex not-md:*:w-full">
+            <ProjectCard {...item} />
+          </div>
+        ))}
+      </div>
+    )
+  }
 </div>
-<!-- <script>
-  import { animate, inView, stagger } from "motion";
-
-  inView(
-    "[data-project-row]",
-    (entry) => {
-      animate([
-        [entry, { opacity: 1 }],
-        [entry.querySelectorAll("[data-project-card]"), { opacity: 1 }],
-        [
-          entry.querySelectorAll(":scope [data-project-card] > div"),
-          { clipPath: "inset(0 0 0 0)" },
-          { duration: 1.2, delay: stagger(0.2), ease: [0.6, 0, 0.2, 1] },
-        ],
-        [
-          entry.querySelectorAll(":scope [data-project-card] > p span"),
-          {
-            y: [10, 0],
-            opacity: [0, 1],
-          },
-          {
-            duration: 0.5,
-            at: "<",
-            delay: stagger(0.2, { startDelay: 0.8 }),
-          },
-        ],
-      ]);
-    },
-    { margin: "0px 0px -200px 0px" }
-  );
-</script> -->
