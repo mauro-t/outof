@@ -6,25 +6,73 @@ import AboutClaim from "../components/ui/about-claim.astro";
 import AboutOutOf from "../components/ui/about-out-of.astro";
 import BuzzPhrase from "../components/ui/buzz-phrase.astro";
 import PurposeMissionVision from "../components/ui/purpose-mission-vision.astro";
+import clsx from "clsx";
+import { sectionBg } from "../lib/section-bg";
+import Mask from "../components/global/mask.astro";
+import FloatingEllipses from "../components/ui/floating-ellipses.astro";
+import SanityPicture from "../components/global/sanity-picture.astro";
 
 const page = await sanityClient.fetch(`*[_type=="about"][0]`);
 ---
 
 <Layout>
-  <div data-section class="min-h-screen p-3 md:p-5">
+  {
+    page.blocks.map((block: any, i: number, arr: any[]) => {
+      if (block._type == "buzz_phrase_block")
+        return (
+          <div
+            data-section={i == arr.length - 1 && "last"}
+            class={clsx(
+              "relative px-3 py-10 md:px-5 md:py-17",
+              sectionBg(block.background)
+            )}
+          >
+            {(block.background == "mask" ||
+              block.background == "mask-not-inverted") && (
+              <Mask invert={block.background == "mask"} />
+            )}
+            {block.background == "ellipses" && <FloatingEllipses />}
+            <div class={clsx(block.background == "ellipses" && "relative")}>
+              <BuzzPhrase content={block.content} />
+            </div>
+          </div>
+        );
+      if (block._type == "claim_block")
+        return (
+          <div data-section={i == arr.length - 1 && "last"}>
+            <AboutClaim {...block} />
+          </div>
+        );
+      if (block._type == "pmv_block")
+        return (
+          <div data-section={i == arr.length - 1 ? "last" : "short"}>
+            <PurposeMissionVision {...block} />
+          </div>
+        );
+      if (block._type == "image_block")
+        return (
+          <div
+            data-section={i == arr.length - 1 && "last"}
+            class="relative h-screen w-full overflow-hidden"
+          >
+            <SanityPicture
+              imageDesktop={block.image_desktop}
+              imageMobile={block.image_mobile}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+        );
+      if (block._type == "outof_block")
+        return (
+          <div data-section={i == arr.length - 1 && "last"}>
+            <AboutOutOf content={block.content} />
+          </div>
+        );
+    })
+  }
+  <!-- <div data-section class="min-h-screen p-3 md:p-5">
     <BuzzPhrase content={page.blocks[0].content} />
-  </div>
-  <AboutClaim />
-  <PurposeMissionVision />
-  <div data-section class="relative h-screen w-full">
-    <picture>
-      <source srcset="/about-mobile.jpg" media="(max-width: 600px)" />
-      <img
-        src="/about-desktop.jpg"
-        class="absolute inset-0 h-full w-full object-cover"
-        loading="lazy"
-      />
-    </picture>
-  </div>
-  <AboutOutOf />
+  </div> -->
+  <!-- <AboutClaim /> -->
+  <!-- <PurposeMissionVision /> -->
 </Layout>

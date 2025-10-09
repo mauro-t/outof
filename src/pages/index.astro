@@ -66,7 +66,10 @@ const page = await sanityClient.fetch(
               sectionBg(block.background)
             )}
           >
-            {block.background == "mask" && <Mask invert />}
+            {(block.background == "mask" ||
+              block.background == "mask-not-inverted") && (
+              <Mask invert={block.background == "mask"} />
+            )}
             {block.background == "ellipses" && <FloatingEllipses />}
             <div class={clsx(block.background == "ellipses" && "relative")}>
               <BuzzPhrase content={block.content} />

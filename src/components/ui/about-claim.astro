@@ -1,14 +1,30 @@
 ---
+import clsx from "clsx";
+import { sectionBg } from "../../lib/section-bg";
 import Mask from "../global/mask.astro";
+import FloatingEllipses from "./floating-ellipses.astro";
+
+type Props = {
+  background: "light" | "dark" | "ellipses" | "mask" | "mask-not-inverted";
+  paragraph: string;
+};
+
+const { background, paragraph } = Astro.props;
 ---
 
 <div
-  data-section
-  class="relative flex h-hero items-center justify-center bg-black p-3 text-white md:p-5 dark:bg-accent dark:text-black"
+  class={clsx(
+    "relative flex h-hero items-center justify-center p-3 md:p-5",
+    sectionBg(background)
+  )}
 >
-  <p class="max-w-174 text-center">
-    Con un approccio strategico e creativo aiutiamo aziende, media e ong a
-    raccontare storie capaci di generare un impatto.
+  {
+    (background == "mask" || background == "mask-not-inverted") && (
+      <Mask invert={background == "mask"} />
+    )
+  }
+  {background == "ellipses" && <FloatingEllipses />}
+  <p class="max-w-135 text-center">
+    {paragraph}
   </p>
-  <Mask />
 </div>

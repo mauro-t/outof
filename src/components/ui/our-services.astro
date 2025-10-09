@@ -6,7 +6,7 @@ import FloatingEllipses from "./floating-ellipses.astro";
 import Mask from "../global/mask.astro";
 
 type Props = {
-  background: "light" | "dark" | "ellipses" | "mask";
+  background: "light" | "dark" | "ellipses" | "mask" | "mask-not-inverted";
   content: { cta: string; description: string; title: string };
   isHomepage?: boolean;
 };
@@ -22,7 +22,11 @@ const TitleTag = isHomepage ? "h2" : "h1";
   )}
 >
   {background == "ellipses" && <FloatingEllipses />}
-  {background == "mask" && <Mask invert />}
+  {
+    (background == "mask" || background == "mask-not-inverted") && (
+      <Mask invert={background == "mask"} />
+    )
+  }
   <div class="relative overflow-hidden">
     <TitleTag data-text="title" class="text-center font-serif text-title-2xl"
       >{content?.title}</TitleTag

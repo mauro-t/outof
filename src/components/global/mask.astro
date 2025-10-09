@@ -9,8 +9,8 @@ const { invert } = Astro.props;
 <div
   data-ts="mask"
   data-mask
-  data-invert={invert}
-  class="group absolute inset-0 flex items-center justify-center overflow-hidden bg-white mix-blend-lighten data-[invert]:bg-black data-[invert]:mix-blend-darken dark:bg-black dark:mix-blend-darken data-[invert]:dark:bg-accent data-[invert]:dark:mix-blend-lighten"
+  data-invert={invert || undefined}
+  class="group pointer-events-none absolute inset-0 z-20 flex items-center justify-center overflow-hidden bg-white mix-blend-lighten data-[invert]:bg-black data-[invert]:mix-blend-darken dark:bg-black dark:mix-blend-darken data-[invert]:dark:bg-accent data-[invert]:dark:mix-blend-lighten"
 >
   <svg
     style="width: 0vmax;"

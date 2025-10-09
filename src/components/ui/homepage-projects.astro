@@ -6,7 +6,7 @@ import FloatingEllipses from "./floating-ellipses.astro";
 import Mask from "../global/mask.astro";
 
 type Props = {
-  background: "light" | "dark" | "ellipses" | "mask";
+  background: "light" | "dark" | "ellipses" | "mask" | "mask-not-inverted";
   title: string;
   cta: string;
   projects: any[];
@@ -17,7 +17,11 @@ const { title, cta, projects, background } = Astro.props;
 
 <div class={clsx("p-3 py-17 md:p-5 md:py-22", sectionBg(background))}>
   {background == "ellipses" && <FloatingEllipses />}
-  {background == "mask" && <Mask invert />}
+  {
+    (background == "mask" || background == "mask-not-inverted") && (
+      <Mask invert={background == "mask"} />
+    )
+  }
   <div class="relative">
     <h4 class="text-center">{title}</h4>
     <div

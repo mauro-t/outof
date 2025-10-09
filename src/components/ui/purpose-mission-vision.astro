@@ -1,9 +1,20 @@
 ---
-import purposeMissionVision from "../../assets/mock-data/purpose-mission-vision.json";
+type Props = {
+  purpose: string;
+  mission: string;
+  vision: string;
+};
+
+const { purpose, mission, vision } = Astro.props;
+
+const purposeMissionVision = [
+  { title: "Purpose", body: purpose },
+  { title: "Mission", body: mission },
+  { title: "Vision", body: vision },
+];
 ---
 
 <div
-  data-section="short"
   class="grid grid-cols-1 gap-10 bg-white px-3 py-10 md:grid-cols-3 md:px-5 md:py-17 dark:bg-black"
 >
   {
