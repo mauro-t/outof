@@ -10,7 +10,7 @@ import ProjectBlockSlider from "../../components/ui/project-block-slider.astro";
 import FullscreenSlider from "../../components/ui/fullscreen-slider.astro";
 import ProjectBlockRichText from "../../components/ui/project-block-rich-text.astro";
 import ProjectBlockImage from "../../components/global/sanity-image.astro";
-import { urlFor } from "../../lib/sanity";
+import SanityPicture from "../../components/global/sanity-picture.astro";
 
 export const getStaticPaths = (async () => {
   const slugs = await sanityClient.fetch(`*[_type == "project"]{
@@ -28,22 +28,20 @@ const { slug } = Astro.params as { slug: string };
 const project = (
   await sanityClient.fetch(`*[_type == "project" && slug.current == "${slug}"]`)
 )[0];
-
-const heroUrl = project.main_image_desktop
-  ? urlFor(project.main_image_desktop).width(2048).url()
-  : undefined;
 ---
 
 <Layout>
   <div class="relative h-screen w-full">
-    <img
-      src={heroUrl}
-      alt=""
-      class="absolute inset-0 h-full w-full object-cover"
-      loading="lazy"
+    <SanityPicture
+      imageDesktop={project.main_image_desktop}
+      imageMobile={project.main_image_mobile}
+      className="absolute inset-0 h-full w-full object-cover"
     />
   </div>
-  <ProjectBlockTitle title={project.title} talents={project.talents} />
+  <ProjectBlockTitle
+    title={project.title}
+    main_service={project.main_service}
+  />
   <ProjectBlockInfo {...project} />
   {
     project.content.map((p: any) => {

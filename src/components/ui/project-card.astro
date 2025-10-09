@@ -4,10 +4,10 @@ import SanityImage from "../global/sanity-image.astro";
 type Props = {
   slug: string;
   title: string;
-  talents: string[];
+  main_service: string;
   listing_image?: any;
 };
-const { slug, title, talents, listing_image } = Astro.props;
+const { slug, title, main_service, listing_image } = Astro.props;
 
 const aspectRatio = listing_image.asset.metadata.dimensions.aspectRatio;
 ---
@@ -29,8 +29,6 @@ const aspectRatio = listing_image.asset.metadata.dimensions.aspectRatio;
   </div>
   <p class="mt-3 text-body-rem font-semibold">
     <span class="block">{title}</span>
-    <span class="block italic"
-      >{talents.length > 2 ? "Multitalent" : talents.join(" & ")}</span
-    >
+    <span class="block italic">{main_service}</span>
   </p>
 </a>

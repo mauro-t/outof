@@ -13,7 +13,7 @@ let projects = Astro.props.projects;
 
 projects ??= await sanityClient.fetch(`*[_type == "project"]{
   title,
-  talents,
+  main_service,
   "slug": slug.current,
   listing_image{
     asset->{

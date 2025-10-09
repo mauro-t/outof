@@ -23,7 +23,7 @@ const grid = await sanityClient.fetch(`*[_type == "projects-grid"]{
     align,
     projects[]->{
       title,
-      talents,
+      main_service,
       "slug": slug.current,
       listing_image{
         asset->{

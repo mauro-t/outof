@@ -5,7 +5,7 @@ import ProjectPreview from "./project-preview.astro";
 const projects =
   await sanityClient.fetch(`*[_type == "project"]|order(orderRank){
   title,
-  talents,
+  main_service,
   "slug": slug.current,
   listing_image
 }`);

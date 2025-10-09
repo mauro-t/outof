@@ -4,11 +4,11 @@ import SanityImage from "../global/sanity-image.astro";
 type Props = {
   slug: string;
   title: string;
-  talents: string[];
+  main_service: string[];
   listing_image?: any;
 };
 
-const { slug, title, talents, listing_image } = Astro.props;
+const { slug, title, main_service, listing_image } = Astro.props;
 ---
 
 <div
@@ -25,8 +25,6 @@ const { slug, title, talents, listing_image } = Astro.props;
     )
   }
   <a href={`/portfolio/${slug}`} class="relative font-serif text-title-md"
-    >{title} &mdash; <span class="italic"
-      >{talents.length > 2 ? "Multitalent" : talents?.join(" & ")}</span
-    ></a
+    >{title} &mdash; <span class="italic">{main_service}</span></a
   >
 </div>

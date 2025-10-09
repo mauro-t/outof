@@ -19,7 +19,7 @@ const page = await sanityClient.fetch(`*[_type=="services"]{
         projects[]->|order(orderRank){
           "slug": slug.current,
           title,
-          talents,
+          main_service,
           listing_image{
               asset->{
                 url,
