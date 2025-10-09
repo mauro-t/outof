@@ -1,0 +1,20 @@
+---
+type Props = {
+  imageDesktop: any;
+  imageMobile: any;
+  className?: string;
+  style?: Partial<CSSStyleDeclaration> | string;
+};
+
+import { urlFor } from "../../lib/sanity";
+
+const props = Astro.props;
+
+const srcDesktop = urlFor(props.imageDesktop).url();
+const srcMobile = urlFor(props.imageMobile).url();
+---
+
+<picture>
+  <source srcset={srcMobile} media="(max-width: 600px)" />
+  <img src={srcDesktop} class={props.className} loading="lazy" />
+</picture>

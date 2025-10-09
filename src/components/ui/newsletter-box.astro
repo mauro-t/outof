@@ -1,13 +1,18 @@
 ---
+type Props = {
+  title: string;
+  description: string;
+};
 
+const { title, description } = Astro.props;
 ---
 
 <div
   class="max-w-116 rounded-3xl bg-white/20 px-6 py-7 text-white backdrop-blur-[6px] dark:text-black"
 >
-  <h3 class="font-serif text-title-sm">Subscribe for weekly inspiration</h3>
-  <div data-animation="by-line" class="my-7">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, iure?
+  <h3 class="font-serif text-title-sm">{title}</h3>
+  <div data-animation="by-line" class="my-7 whitespace-pre-line">
+    {description}
   </div>
   <form
     action="#"

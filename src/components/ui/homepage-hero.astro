@@ -1,5 +1,11 @@
 ---
+type Props = {
+  outof: { label: string; paragraph: string }[];
+};
+
 import LogoHtml from "../global/logo-html.astro";
+
+const { outof } = Astro.props;
 ---
 
 <div
@@ -13,13 +19,8 @@ import LogoHtml from "../global/logo-html.astro";
     <LogoHtml />
     <div class="relative overflow-y-clip text-center italic md:text-left">
       <div id="title-words" class="absolute inset-0">
-        <div>Order</div>
-        <div>Office</div>
-        <div>Place</div>
-        <div>Mind</div>
-        <div>Time</div>
-        <div>Love</div>
-        <div>Order</div>
+        {outof.map(({ label }) => <div>{label}</div>)}
+        <div>{outof[0]?.label}</div>
       </div>
     </div>
   </div>
@@ -27,51 +28,21 @@ import LogoHtml from "../global/logo-html.astro";
     id="title-paragraphs"
     class="mt-12 grid grid-cols-1 grid-rows-1 text-center"
   >
-    <p class="col-start-1 row-start-1 inline-block max-w-174 text-body-md">
-      è quando il sistema non risponde. Le cose rotte ci parlano di possibilità.
-      Di spazi dove infilare nuove regole, o nessuna.
-    </p>
+    {
+      outof.map(({ paragraph }, i) => (
+        <p
+          style={{ opacity: i == 0 ? "1" : "0" }}
+          class="col-start-1 row-start-1 inline-block max-w-174 text-body-md"
+        >
+          {paragraph}
+        </p>
+      ))
+    }
     <p
-      style="opacity: 0;"
+      style={{ opacity: "0" }}
       class="col-start-1 row-start-1 inline-block max-w-174 text-body-md"
     >
-      è dove succede la vita. Fuori dall’inquadratura, lontano dalle mail,
-      perdiamo il Wi-Fi ma troviamo nuove connessioni.
-    </p>
-    <p
-      style="opacity: 0;"
-      class="col-start-1 row-start-1 inline-block max-w-174 text-body-md"
-    >
-      è sentirsi sbagliati nel posto giusto. È non appartenere mai del tutto. Ed
-      è proprio lì che nascono le cose nuove.
-    </p>
-    <p
-      style="opacity: 0;"
-      class="col-start-1 row-start-1 inline-block max-w-174 text-body-md"
-    >
-      è perdersi di vista, lasciar andare la forma, seguire l’idea che
-      scompiglia. Pensare troppo. Pensare altro. Pensare ancora.
-    </p>
-    <p
-      style="opacity: 0;"
-      class="col-start-1 row-start-1 inline-block max-w-174 text-body-md"
-    >
-      è non avere tempo da perdere. E nemmeno da sprecare. Solo tempo da usare
-      bene, per qualcosa che valga la pena.
-    </p>
-    <p
-      style="opacity: 0;"
-      class="col-start-1 row-start-1 inline-block max-w-174 text-body-md"
-    >
-      è fare le cose per amore. Anche quando nessuno guarda. Anche quando non
-      conviene. Soprattutto, quando sembra inutile.
-    </p>
-    <p
-      style="opacity: 0;"
-      class="col-start-1 row-start-1 inline-block max-w-174 text-body-md"
-    >
-      è quando il sistema non risponde. Le cose rotte ci parlano di possibilità.
-      Di spazi dove infilare nuove regole, o nessuna.
+      {outof[0]?.paragraph}
     </p>
   </div>
 </div>

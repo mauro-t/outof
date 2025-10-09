@@ -1,4 +1,6 @@
 ---
+import { sanityClient } from "sanity:client";
+
 import Layout from "../components/layout/layout.astro";
 import BuzzPhrase from "../components/ui/buzz-phrase.astro";
 import HomepageHero from "../components/ui/homepage-hero.astro";
@@ -6,44 +8,106 @@ import HomepageProjects from "../components/ui/homepage-projects.astro";
 import OurServices from "../components/ui/our-services.astro";
 import NewsletterBox from "../components/ui/newsletter-box.astro";
 import Mask from "../components/global/mask.astro";
+import SanityPicture from "../components/global/sanity-picture.astro";
+import clsx from "clsx";
+import { sectionBg } from "../lib/section-bg";
+import FloatingEllipses from "../components/ui/floating-ellipses.astro";
+
+const page = await sanityClient.fetch(
+  `*[_type=="homepage"]{
+    hero,
+    blocks[]{
+      ...,
+      _type=="newsletter_block"=>{
+        ...,
+        background_video{
+          asset->{
+            url
+          }
+        }
+      },
+      _type=="projects_block"=>{
+        ...,
+        projects[]->{
+          "slug": slug.current,
+          title,
+          talents,
+          listing_image
+          }
+        }
+      }
+    }[0]`
+);
+console.log(page.blocks.find((b: any) => b._type == "newsletter_block"));
 ---
 
 <Layout>
-  <HomepageHero />
-  <div data-section class="relative h-screen w-full overflow-hidden">
-    <picture>
-      <source srcset="/hp-mobile.jpg" media="(max-width: 600px)" />
-      <img
-        src="/hp-desktop.jpg"
-        class="absolute inset-0 h-full w-full object-cover"
-        loading="lazy"
-      />
-    </picture>
-  </div>
-  <div
-    data-section
-    class="relative bg-white px-3 py-10 md:px-5 md:py-17 dark:bg-black"
-  >
-    <BuzzPhrase />
-    <Mask invert />
-  </div>
-  <OurServices isHomepage />
-  <HomepageProjects />
-  <div
-    data-section="last"
-    class="relative bg-white not-md:h-screen dark:bg-black"
-  >
-    <video
-      class="absolute inset-0 h-full w-full object-cover md:static"
-      src="/newsletter-bg.mp4"
-      muted
-      playsinline
-      autoplay
-      loop></video>
-    <div
-      class="sticky top-[calc(var(--header-height)+12px)] left-0 px-3 py-3 md:absolute md:top-10 md:left-10"
-    >
-      <NewsletterBox />
-    </div>
-  </div>
+  <HomepageHero outof={page.hero} />
+  {
+    page.blocks.map((block: any, i: number, arr: any[]) => {
+      if (block._type == "image_block")
+        return (
+          <div
+            data-section={i == arr.length - 1 && "last"}
+            class="relative h-screen w-full overflow-hidden"
+          >
+            <SanityPicture
+              imageDesktop={block.image_desktop}
+              imageMobile={block.image_mobile}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </div>
+        );
+      if (block._type == "buzz_phrase_block")
+        return (
+          <div
+            data-section={i == arr.length - 1 && "last"}
+            class={clsx(
+              "relative px-3 py-10 md:px-5 md:py-17",
+              sectionBg(block.background)
+            )}
+          >
+            {block.background == "mask" && <Mask invert />}
+            {block.background == "ellipses" && <FloatingEllipses />}
+            <div class={clsx(block.background == "ellipses" && "relative")}>
+              <BuzzPhrase content={block.content} />
+            </div>
+          </div>
+        );
+      if (block._type == "services_block")
+        return (
+          <div data-section={i == arr.length - 1 ? "last" : "short"}>
+            <OurServices isHomepage {...block} />
+          </div>
+        );
+      if (block._type == "projects_block")
+        return (
+          <div data-section={i == arr.length - 1 && "last"}>
+            <HomepageProjects isHomepage {...block} />
+          </div>
+        );
+      if (block._type == "newsletter_block")
+        return (
+          <div
+            data-section="last"
+            class="relative bg-white not-md:h-screen dark:bg-black"
+          >
+            <video
+              class="absolute inset-0 h-full w-full object-cover md:static"
+              src={block.background_video.asset.url}
+              muted
+              playsinline
+              autoplay
+              loop
+            />
+            <div class="sticky top-[calc(var(--header-height)+12px)] left-0 px-3 py-3 md:absolute md:top-10 md:left-10">
+              <NewsletterBox
+                title={block.title}
+                description={block.description}
+              />
+            </div>
+          </div>
+        );
+    })
+  }
 </Layout>

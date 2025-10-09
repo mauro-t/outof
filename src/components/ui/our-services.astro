@@ -1,39 +1,47 @@
 ---
+import clsx from "clsx";
+import { sectionBg } from "../../lib/section-bg";
+
 import FloatingEllipses from "./floating-ellipses.astro";
+import Mask from "../global/mask.astro";
 
 type Props = {
+  background: "light" | "dark" | "ellipses" | "mask";
+  content: { cta: string; description: string; title: string };
   isHomepage?: boolean;
 };
 
-const { isHomepage } = Astro.props;
+const { isHomepage, background, content } = Astro.props;
 const TitleTag = isHomepage ? "h2" : "h1";
 ---
 
 <div
-  data-section="short"
-  class="relative flex h-hero w-full flex-col items-center justify-center bg-black p-6 text-white md:aspect-9/4 md:h-auto dark:bg-accent dark:text-black"
+  class={clsx(
+    "relative flex h-hero w-full flex-col items-center justify-center p-6 md:aspect-9/4 md:h-auto",
+    sectionBg(background)
+  )}
 >
-  <FloatingEllipses />
+  {background == "ellipses" && <FloatingEllipses />}
+  {background == "mask" && <Mask invert />}
   <div class="relative overflow-hidden">
     <TitleTag data-text="title" class="text-center font-serif text-title-2xl"
-      >I nostri servizi</TitleTag
+      >{content.title}</TitleTag
     >
   </div>
   <p
     data-text="body"
     class="relative mt-6 max-w-174 text-center text-body-md md:mt-12"
   >
-    Strategia, creatività e produzione si uniscono per accompagnare progetti che
-    vogliono lasciare un segno, non solo un&rsquo;impressione.
+    {content.description}
   </p>
   {
-    isHomepage && (
+    content.cta && (
       <div class="mt-8">
         <a
           href="/services"
           class="group relative inline-flex items-center gap-1.5"
         >
-          scopri di più{" "}
+          {content.cta}{" "}
           <div class="overflow-hidden">
             <span class="inline-block -translate-x-full transition-transform duration-500 group-hover:translate-x-0">
               +

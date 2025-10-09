@@ -1,16 +1,36 @@
 ---
+import clsx from "clsx";
 import LogoHtml from "../global/logo-html.astro";
 type Props = {
-  animateByLine?: boolean;
+  content: { value: string; align: "right" | "left" | "center" }[];
 };
+
+const { content } = Astro.props;
+
+const alignments = {
+  left: "text-left",
+  right: "text-right",
+  center: "text-center",
+};
+
+const lines = content.map((line) => ({
+  align: alignments[line.align],
+  value: line.value.replace(
+    "OutOf",
+    "<div class='font-serif inline-block'><span class='italic'>O</span>ut<span class='italic'>O</span>f</div>"
+  ),
+}));
 ---
 
-<div class="text-title-buzzphrase relative font-serif leading-none">
-  <div class="contents text-right md:block">
-    <LogoHtml class="inline-block" /> è un’agenzia
-  </div>
-  <div class="contents text-center md:block">creativa che promuove</div>
-  <div class="contents md:block">consapevolezza attraverso</div>
-  <div class="contents text-right md:block">progetti di natura culturale,</div>
-  <div class="contents text-right md:block">sociale e ambientale.</div>
+<div class="relative font-serif text-title-buzzphrase leading-none">
+  {
+    lines.map((line) => (
+      <>
+        <div
+          class={clsx("contents md:block", line.align)}
+          set:html={line.value}
+        />
+      </>
+    ))
+  }
 </div>
