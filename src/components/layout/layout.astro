@@ -3,10 +3,26 @@ import "../../styles.css";
 import "swiper/css";
 import "swiper/css/pagination";
 
+import { sanityClient } from "sanity:client";
+
 import Header from "./header.astro";
 import Footer from "./footer.astro";
 import PopupNewsletter from "../ui/popup-newsletter.astro";
 import PopupEcoview from "../ui/popup-ecoview.astro";
+
+const general = await sanityClient.fetch(`*[_type=="general"][0]{
+  ...,
+  newsletter_popup{
+    title,
+    description,
+    background_video{
+      asset->{
+        url
+      }
+    }
+  }
+}`);
+console.log(general);
 ---
 
 <html lang="en" class="scrollbar-none">
@@ -35,7 +51,7 @@ import PopupEcoview from "../ui/popup-ecoview.astro";
         <slot />
       </main>
       <div id="footer-space" class="h-(--footer-height)"></div>
-      <Footer />
+      <Footer content={general.footer} />
     </div>
     <div
       id="page-transition-layer"
@@ -55,8 +71,8 @@ import PopupEcoview from "../ui/popup-ecoview.astro";
           class="fill-black dark:fill-accent"></path>
       </svg>
     </div>
-    <PopupNewsletter />
-    <PopupEcoview />
+    <PopupNewsletter content={general.newsletter_popup} />
+    <PopupEcoview content={general.ecoview_popup} />
   </body>
   <script>
     import Lenis from "lenis";

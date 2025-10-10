@@ -11,10 +11,7 @@ type Props = {
 const { slug, title, main_service, listing_image } = Astro.props;
 ---
 
-<div
-  data-project-preview
-  class="group relative overflow-x-clip text-center hover:z-10"
->
+<div data-project-preview class="group relative text-center hover:z-10">
   {
     listing_image && (
       <SanityImage

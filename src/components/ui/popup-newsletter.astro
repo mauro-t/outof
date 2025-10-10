@@ -1,5 +1,19 @@
 ---
 import NewsletterBox from "./newsletter-box.astro";
+
+type Props = {
+  content: {
+    title: string;
+    description: string;
+    background_video: {
+      asset: {
+        url: string;
+      };
+    };
+  };
+};
+
+const { content } = Astro.props;
 ---
 
 <div
@@ -12,7 +26,7 @@ import NewsletterBox from "./newsletter-box.astro";
     class="relative flex aspect-33/40 w-full max-w-[33.75rem] items-center justify-center overflow-hidden rounded-3xl px-3"
   >
     <video
-      src="/newsletter-bg.mp4"
+      src={content.background_video.asset.url}
       autoplay
       loop
       playsinline
@@ -33,7 +47,7 @@ import NewsletterBox from "./newsletter-box.astro";
       </svg></button
     >
     <div class="relative">
-      <NewsletterBox />
+      <NewsletterBox title={content.title} description={content.description} />
     </div>
   </div>
 </div>

@@ -1,5 +1,15 @@
 ---
+import SanityImage from "../global/sanity-image.astro";
 
+type Props = {
+  content: {
+    title: string;
+    description: string;
+    background_image: any;
+  };
+};
+
+const { content } = Astro.props;
 ---
 
 <div
@@ -11,9 +21,9 @@
   <div
     class="relative flex aspect-33/40 w-full max-w-[33.75rem] items-center justify-center overflow-hidden rounded-3xl px-3"
   >
-    <img
-      src="/mock-images/project1.jpg"
-      class="absolute inset-0 h-full w-full object-cover"
+    <SanityImage
+      image={content.background_image}
+      className="absolute inset-0 h-full w-full object-cover"
     />
     <button data-ecoview-close class="absolute top-5 right-5 cursor-pointer"
       ><svg
@@ -33,10 +43,9 @@
       <div
         class="max-w-116 rounded-3xl bg-white/20 px-6 py-7 text-white backdrop-blur-[6px] dark:text-accent"
       >
-        <h3 class="font-serif text-title-sm">ECO VIEW</h3>
+        <h3 class="font-serif text-title-sm">{content.title}</h3>
         <div data-animation="by-line" class="my-7">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos,
-          iure?
+          {content.description}
         </div>
         <label
           for="theme-switcher-popup"

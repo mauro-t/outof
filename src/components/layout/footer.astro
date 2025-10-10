@@ -3,6 +3,25 @@ import O from "../../assets/O.svg";
 import U from "../../assets/u.svg";
 import T from "../../assets/t.svg";
 import F from "../../assets/f.svg";
+
+type Props = {
+  content: {
+    address: string[];
+    vat: string;
+    contacts: {
+      email?: string;
+      phone?: string;
+    };
+    social: {
+      name: string;
+      link: string;
+    }[];
+  };
+};
+
+const {
+  content: { address, vat, contacts, social },
+} = Astro.props;
 ---
 
 <footer
@@ -10,33 +29,53 @@ import F from "../../assets/f.svg";
 >
   <div class="px-3 pb-3 md:px-5 xl:hidden">
     <div>
-      Piazza della Repubblica <br />
-      8 20121 Milano (MI) <br />
-      P.IVA 10469510969
+      {address?.map((line) => <div>{line}</div>)}
+      <div>P.IVA {vat}</div>
     </div>
     <div class="mt-6 flex items-end justify-between">
       <div>
-        <div class="group relative w-fit cursor-pointer">
-          Email
-          <span
-            class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100"
-          ></span>
-        </div>
-        <div class="group relative w-fit cursor-pointer">
-          Telefono
-          <span
-            class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100"
-          ></span>
-        </div>
+        {
+          contacts?.email && (
+            <a
+              href={`mailto:${contacts.email}`}
+              class="group relative w-fit cursor-pointer"
+            >
+              Email
+              <span class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
+            </a>
+          )
+        }
+        {
+          contacts?.phone && (
+            <a
+              href={`tel:${contacts.phone}`}
+              class="group relative w-fit cursor-pointer"
+            >
+              Telefono
+              <span class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
+            </a>
+          )
+        }
       </div>
       <div>
-        <div class="group relative w-fit cursor-pointer">
-          Linkedin
-          <span
-            class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100"
-          ></span>
-        </div>
-        <div class="group relative w-fit cursor-pointer">
+        {
+          social?.map((s) => (
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href={s.link}
+              class="group relative w-fit cursor-pointer"
+            >
+              {s.name}
+              <span class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
+            </a>
+          ))
+        }
+
+        <div
+          data-newsletter-trigger
+          class="group relative w-fit cursor-pointer"
+        >
           Newsletter
           <span
             class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100"
@@ -53,32 +92,51 @@ import F from "../../assets/f.svg";
         class="absolute top-0 right-0 hidden w-max translate-x-full items-end xl:flex"
       >
         <div class="whitespace-nowrap">
-          Piazza della Repubblica <br />
-          8 20121 Milano (MI) <br />
-          P.IVA 10469510969
+          {address.map((line) => <div>{line}</div>)}
+          <div>P.IVA {vat}</div>
         </div>
         <div class="pl-[2vw]">
-          <div class="group relative w-fit cursor-pointer">
-            Email
-            <span
-              class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100"
-            ></span>
-          </div>
-          <div class="group relative w-fit cursor-pointer">
-            Telefono
-            <span
-              class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100"
-            ></span>
-          </div>
+          {
+            contacts?.email && (
+              <a
+                href={`mailto:${contacts.email}`}
+                class="group relative w-fit cursor-pointer"
+              >
+                Email
+                <span class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
+              </a>
+            )
+          }
+          {
+            contacts?.phone && (
+              <a
+                href={`tel:${contacts.phone}`}
+                class="group relative w-fit cursor-pointer"
+              >
+                Telefono
+                <span class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
+              </a>
+            )
+          }
         </div>
         <div class="pl-[12vw]">
-          <div class="group relative w-fit cursor-pointer">
-            Linkedin
-            <span
-              class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100"
-            ></span>
-          </div>
-          <div class="group relative w-fit cursor-pointer">
+          {
+            social?.map((s) => (
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={s.link}
+                class="group relative w-fit cursor-pointer"
+              >
+                {s.name}
+                <span class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
+              </a>
+            ))
+          }
+          <div
+            data-newsletter-trigger
+            class="group relative w-fit cursor-pointer"
+          >
             Newsletter
             <span
               class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100"
