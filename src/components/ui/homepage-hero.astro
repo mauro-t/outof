@@ -14,13 +14,14 @@ const { outof } = Astro.props;
   class="flex h-hero flex-col items-center justify-center p-3 md:p-5"
 >
   <div
-    class="inline-grid grid-cols-1 grid-rows-2 font-serif text-title-2xl leading-none md:grid-cols-2 md:grid-rows-1 md:gap-12"
+    class="inline-grid grid-cols-1 grid-rows-2 font-serif text-title-2xl leading-none md:grid-cols-2 md:grid-rows-1 md:gap-8"
   >
-    <LogoHtml />
-    <div class="relative overflow-y-clip text-center italic md:text-left">
+    <div class="w-fit justify-self-center">
+      <LogoHtml />
+    </div>
+    <div class="relative w-[5ch] text-center italic md:text-left">
       <div id="title-words" class="absolute inset-0">
-        {outof.map(({ label }) => <div>{label}</div>)}
-        <div>{outof[0]?.label}</div>
+        {outof.map(({ label }) => <div class="absolute inset-0">{label}</div>)}
       </div>
     </div>
   </div>
@@ -30,19 +31,10 @@ const { outof } = Astro.props;
   >
     {
       outof.map(({ paragraph }, i) => (
-        <p
-          style={{ opacity: i == 0 ? "1" : "0" }}
-          class="col-start-1 row-start-1 inline-block max-w-174 text-body-md"
-        >
+        <p class="col-start-1 row-start-1 inline-block max-w-174 text-body-md">
           {paragraph}
         </p>
       ))
     }
-    <p
-      style={{ opacity: "0" }}
-      class="col-start-1 row-start-1 inline-block max-w-174 text-body-md"
-    >
-      {outof[0]?.paragraph}
-    </p>
   </div>
 </div>
