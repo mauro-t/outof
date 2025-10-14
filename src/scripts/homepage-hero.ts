@@ -35,7 +35,7 @@ export default function HomepageHero() {
       animate(
         wordChars,
         { opacity: 0 },
-        { delay: stagger(0.075, { startDelay: 1.2 }), duration: 0.05 },
+        { delay: stagger(0.075, { startDelay: 1.8 }), duration: 0.05 },
       );
     });
   }
@@ -53,7 +53,7 @@ export default function HomepageHero() {
         {
           duration: 0.2,
           ease: "easeInOut",
-          delay: stagger(0.05, { startDelay: 1.2 }),
+          delay: stagger(0.05, { startDelay: 1.8 }),
         },
       );
     });
@@ -63,7 +63,7 @@ export default function HomepageHero() {
 
   function loop(timestamp: number) {
     time ??= timestamp;
-    if (timestamp - time >= 2000) {
+    if (timestamp - time >= 2400) {
       showWordChars();
       showParagraphWords();
       if (i == titleWords.length - 1) i = 0;
