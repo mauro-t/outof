@@ -14,7 +14,16 @@ const { title, description } = Astro.props;
   <div data-animation="by-line" class="my-7 whitespace-pre-line">
     {description}
   </div>
-  <form
+  <div class="">
+    <a
+      href="https://outofpicnic.substack.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="rounded-full bg-white px-6 py-3 text-[12px] font-semibold text-nowrap text-black uppercase sm1:text-body-rem dark:bg-black dark:text-accent"
+      >Iscriviti alla newsletter</a
+    >
+  </div>
+  <!-- <form
     action="#"
     class="relative flex rounded-full text-black ring-black has-focus-within:ring-2 dark:ring-accent"
   >
@@ -39,5 +48,5 @@ const { title, description } = Astro.props;
         ></path>
       </svg>
     </button>
-  </form>
+  </form> -->
 </div>

@@ -6,8 +6,6 @@ import F from "../../assets/f.svg";
 
 type Props = {
   content: {
-    address: string[];
-    vat: string;
     contacts: {
       email?: string;
       phone?: string;
@@ -20,7 +18,7 @@ type Props = {
 };
 
 const {
-  content: { address, vat, contacts, social },
+  content: { contacts, social },
 } = Astro.props;
 ---
 
@@ -28,62 +26,28 @@ const {
   class="fixed bottom-0 w-full bg-black pt-40 pb-8 text-body-rem text-white dark:bg-accent dark:text-black"
 >
   <div class="px-3 pb-3 md:px-5 xl:hidden">
-    <div>
-      {address?.map((line) => <div>{line}</div>)}
-      <div>P.IVA {vat}</div>
-    </div>
-    <div class="mt-6 flex items-end justify-between">
-      <div>
-        {
-          contacts?.email && (
-            <a
-              href={`mailto:${contacts.email}`}
-              class="group relative w-fit cursor-pointer"
-            >
-              Email
-              <span class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
-            </a>
-          )
-        }
-        {
-          contacts?.phone && (
-            <a
-              href={`tel:${contacts.phone}`}
-              class="group relative w-fit cursor-pointer"
-            >
-              Telefono
-              <span class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
-            </a>
-          )
-        }
-      </div>
-      <div>
-        {
-          social?.map((s) => (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href={s.link}
-              class="group relative w-fit cursor-pointer"
-            >
-              {s.name}
-              <span class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
-            </a>
-          ))
-        }
-
-        <div
-          data-newsletter-trigger
-          class="group relative w-fit cursor-pointer"
+    {
+      contacts.email && (
+        <a class="block" href={`mailto:${contacts.email}`}>
+          Email
+        </a>
+      )
+    }
+    {
+      social.map((s) => (
+        <a
+          class="block"
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`${s.link}`}
         >
-          Newsletter
-          <span
-            class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100"
-          ></span>
-        </div>
-      </div>
-      <div>© 2025 Out Of</div>
-    </div>
+          {s.name}
+        </a>
+      ))
+    }
+    <button data-newsletter-trigger class="block cursor-pointer text-left"
+      >Newsletter</button
+    >
   </div>
   <div class="flex items-end justify-center gap-[1%]">
     <div class="relative w-[22.78%]">
@@ -91,58 +55,35 @@ const {
       <div
         class="absolute top-0 right-0 hidden w-max translate-x-full items-end xl:flex"
       >
-        <div class="whitespace-nowrap">
-          {address.map((line) => <div>{line}</div>)}
-          <div>P.IVA {vat}</div>
-        </div>
         <div class="pl-[2vw]">
           {
-            contacts?.email && (
-              <a
-                href={`mailto:${contacts.email}`}
-                class="group relative w-fit cursor-pointer"
-              >
+            contacts.email && (
+              <a class="block" href={`mailto:${contacts.email}`}>
                 Email
-                <span class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
               </a>
             )
           }
           {
-            contacts?.phone && (
+            social.map((s) => (
               <a
-                href={`tel:${contacts.phone}`}
-                class="group relative w-fit cursor-pointer"
-              >
-                Telefono
-                <span class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
-              </a>
-            )
-          }
-        </div>
-        <div class="pl-[12vw]">
-          {
-            social?.map((s) => (
-              <a
+                class="block"
                 target="_blank"
                 rel="noopener noreferrer"
-                href={s.link}
-                class="group relative w-fit cursor-pointer"
+                href={`${s.link}`}
               >
                 {s.name}
-                <span class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
               </a>
             ))
           }
-          <div
-            data-newsletter-trigger
-            class="group relative w-fit cursor-pointer"
+          <button data-newsletter-trigger class="block cursor-pointer text-left"
+            >Newsletter</button
           >
-            Newsletter
-            <span
-              class="absolute bottom-0 left-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100"
-            ></span>
-          </div>
         </div>
+      </div>
+      <div
+        class="absolute bottom-0 left-[55%] w-max text-[12px] font-semibold not-xl:hidden"
+      >
+        Design by Irene. Developed by Mauro
       </div>
     </div>
     <div class="w-[20.28%]">
@@ -161,5 +102,13 @@ const {
         >© 2025 Out Of</span
       >
     </div>
+  </div>
+  <div
+    class="mt-3 flex items-end justify-between gap-6 px-3 md:mt-6 md:px-6 xl:hidden"
+  >
+    <span>
+      Design by Irene. <br class="block sm:hidden" /> Developed by Mauro.</span
+    >
+    <span class="whitespace-nowrap">© 2025 Out Of</span>
   </div>
 </footer>

@@ -73,6 +73,8 @@
   --color-black: hsla(30, 57%, 8%, 1);
   --color-accent: hsla(69, 99%, 66%, 1);
 
+  --breakpoint-sm1: 375px;
+
   
 }
 
