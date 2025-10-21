@@ -25,7 +25,7 @@ const general = await sanityClient.fetch(`*[_type=="general"][0]{
 console.log(general);
 ---
 
-<html lang="en" class="scrollbar-none">
+<html lang="en" class="scrollbar-none overscroll-none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,7 +43,7 @@ console.log(general);
     </script>
   </head>
   <body
-    class="bg-white text-body-sm text-black antialiased dark:bg-black dark:text-accent"
+    class="overscroll-none bg-white text-body-sm text-black antialiased dark:bg-black dark:text-accent"
   >
     <Header />
     <div id="content" style="opacity: 0;">
@@ -85,9 +85,17 @@ console.log(general);
     import animateText from "../../animations/animate-text";
     import { animate } from "motion";
 
-    new Lenis({
+    declare global {
+      interface Window {
+        lenis?: Lenis; // or whatever type you need
+      }
+    }
+
+    const lenis = new Lenis({
       autoRaf: true,
     });
+
+    window.lenis = lenis;
 
     const swup = new Swup({ animationSelector: "" });
     const footer = document.querySelector<HTMLElement>("footer")!;
