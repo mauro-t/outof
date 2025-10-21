@@ -23,7 +23,7 @@ const {
 ---
 
 <footer
-  class="fixed bottom-0 w-full bg-black pt-40 pb-8 text-body-rem text-white dark:bg-accent dark:text-black"
+  class="fixed bottom-0 w-full bg-black pt-40 pb-8 text-body-rem font-semibold text-white dark:bg-accent dark:text-black"
 >
   <div class="px-3 pb-3 md:px-5 xl:hidden">
     {
@@ -58,31 +58,39 @@ const {
         <div class="pl-[2vw]">
           {
             contacts.email && (
-              <a class="block" href={`mailto:${contacts.email}`}>
+              <a
+                class="group relative block w-fit"
+                href={`mailto:${contacts.email}`}
+              >
                 Email
+                <span class="absolute bottom-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
               </a>
             )
           }
           {
             social.map((s) => (
               <a
-                class="block"
+                class="group relative block w-fit"
                 target="_blank"
                 rel="noopener noreferrer"
                 href={`${s.link}`}
               >
                 {s.name}
+                <span class="absolute bottom-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100" />
               </a>
             ))
           }
-          <button data-newsletter-trigger class="block cursor-pointer text-left"
-            >Newsletter</button
+          <button
+            data-newsletter-trigger
+            class="group relative block w-fit cursor-pointer text-left"
+            >Newsletter
+            <span
+              class="absolute bottom-0 block h-px w-full origin-left scale-x-0 bg-current transition-transform group-hover:scale-x-100"
+            ></span></button
           >
         </div>
       </div>
-      <div
-        class="absolute bottom-0 left-[55%] w-max text-[12px] font-semibold not-xl:hidden"
-      >
+      <div class="absolute bottom-0 left-[55%] w-max text-[12px] not-xl:hidden">
         Design by <a
           href="http://www.irenesalvadeo.com/"
           target="_blank"
