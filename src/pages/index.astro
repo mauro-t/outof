@@ -24,6 +24,11 @@ const page = await sanityClient.fetch(
           asset->{
             url
           }
+        },
+        background_video_mobile{
+          asset->{
+            url
+          }
         }
       },
       _type=="projects_block"=>{
@@ -95,8 +100,16 @@ const page = await sanityClient.fetch(
             class="relative bg-white not-md:h-screen dark:bg-black"
           >
             <video
-              class="absolute inset-0 h-full w-full object-cover md:static"
+              class="hidden h-full w-full object-cover md:block"
               src={block.background_video.asset.url}
+              muted
+              playsinline
+              autoplay
+              loop
+            />
+            <video
+              class="absolute inset-0 h-full w-full object-cover md:hidden"
+              src={block.background_video_mobile?.asset.url}
               muted
               playsinline
               autoplay

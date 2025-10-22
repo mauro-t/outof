@@ -26,9 +26,10 @@ const { content } = Astro.props;
     class="relative flex aspect-33/40 w-full max-w-[33.75rem] items-center justify-center overflow-hidden rounded-3xl px-3"
   >
     <video
+      data-nl-video
       src={content.background_video.asset.url}
-      autoplay
       loop
+      autoplay
       playsinline
       muted
       class="absolute inset-0 h-full w-full object-cover"></video>
