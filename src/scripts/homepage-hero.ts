@@ -53,7 +53,7 @@ export default function HomepageHero() {
         {
           duration: 0.2,
           ease: "easeInOut",
-          delay: stagger(0.05, { startDelay: 1.8 }),
+          delay: stagger(0.05, { startDelay: 1.4 }),
         },
       );
     });
