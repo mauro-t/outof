@@ -64,7 +64,7 @@ const rowAlign = {
         )}
       >
         {row.projects.map((item: any) => (
-          <div class="flex not-md:*:w-full">
+          <div class="contents not-md:*:w-full">
             <ProjectCard {...item} />
           </div>
         ))}
@@ -72,18 +72,20 @@ const rowAlign = {
     ))
   }
   {
-    missingProjects.length && (
+    missingProjects.length ? (
       <div
         class={clsx(
           "row flex flex-col flex-wrap gap-5 md:h-120 md:flex-row md:gap-2"
         )}
       >
         {missingProjects.map((item: any) => (
-          <div class="flex not-md:*:w-full">
+          <div class="contents not-md:*:w-full">
             <ProjectCard {...item} />
           </div>
         ))}
       </div>
+    ) : (
+      ""
     )
   }
 </div>
