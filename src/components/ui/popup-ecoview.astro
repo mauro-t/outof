@@ -25,7 +25,10 @@ const { content } = Astro.props;
       image={content.background_image}
       className="absolute inset-0 h-full w-full object-cover"
     />
-    <button data-ecoview-close class="absolute top-5 right-5 cursor-pointer"
+    <button
+      aria-label="close popup"
+      data-ecoview-close
+      class="absolute top-5 right-5 cursor-pointer"
       ><svg
         xmlns="http://www.w3.org/2000/svg"
         width="28"

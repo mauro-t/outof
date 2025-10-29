@@ -74,12 +74,12 @@ const page = await sanityClient.fetch(`*[_type=="services"]{
             )}
             {block.background == "ellipses" && <FloatingEllipses />}
             <div class="relative py-10 md:py-17">
-              <h4
+              <h3
                 data-text="title"
                 class="mb-5 px-3 font-serif text-title-sm md:mb-10 md:px-5"
               >
                 {block.title}
-              </h4>
+              </h3>
               <ProjectsSlider projects={block.projects} />
             </div>
             {last && (
