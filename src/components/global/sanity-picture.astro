@@ -16,5 +16,5 @@ const srcMobile = urlFor(props.imageMobile).url();
 
 <picture>
   <source srcset={srcMobile} media="(max-width: 600px)" />
-  <img src={srcDesktop} class={props.className} loading="lazy" />
+  <img src={srcDesktop} class={props.className} loading="lazy" alt="" />
 </picture>

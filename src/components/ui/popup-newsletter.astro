@@ -34,7 +34,10 @@ const { content } = Astro.props;
       playsinline
       muted
       class="absolute inset-0 h-full w-full object-cover"></video>
-    <button data-newsletter-close class="absolute top-5 right-5 cursor-pointer"
+    <button
+      data-newsletter-close
+      aria-label="close newsletter"
+      class="absolute top-5 right-5 cursor-pointer"
       ><svg
         xmlns="http://www.w3.org/2000/svg"
         width="28"
